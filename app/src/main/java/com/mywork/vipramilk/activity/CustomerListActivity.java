@@ -7,8 +7,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,6 +25,7 @@ import com.mywork.vipramilk.viewmodel.CustomerDataViewModel;
 import java.util.List;
 
 public class CustomerListActivity extends AppCompatActivity implements CustomerListAdapter.ItemClickListener {
+    private static final String TAG = "CustomerListActivity";
     private CustomerDataViewModel customerDataViewModel;
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
 
@@ -71,5 +75,29 @@ public class CustomerListActivity extends AppCompatActivity implements CustomerL
     @Override
     public void onItemClick(View view, CustomerData customerData) {
         Toast.makeText(this, "Item click", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemMessageClick(View view, CustomerData customerData) {
+        openWhatsApp(customerData.getContactWhatsapp());
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, customerData.getAddress());
+        sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(customerData.getContactWhatsapp())+"@s.whatsapp.net");
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
+    }
+    private void openWhatsApp(String number) {
+        try {
+            number = number.replace(" ", "").replace("+", "");
+
+            Intent sendIntent = new Intent("android.intent.action.MAIN");
+            sendIntent.setComponent(new ComponentName("com.whatsapp","com.whatsapp.Conversation"));
+            sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(number)+"@s.whatsapp.net");
+            startActivity(sendIntent);
+
+        } catch(Exception e) {
+            Log.e(TAG, "ERROR_OPEN_MESSANGER"+e.toString());
+        }
     }
 }

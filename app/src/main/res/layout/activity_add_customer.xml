@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".activity.AddCustomerActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,6 +27,7 @@
                 android:id="@+id/edtTextCustName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPersonName"
                 android:hint="Customer Name" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -43,7 +45,8 @@
                 android:id="@+id/edtTextAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Address" />
+                android:hint="Address"
+                android:inputType="textPostalAddress"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -61,7 +64,9 @@
                 android:id="@+id/edtContactOne"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Contact Number" />
+                android:hint="Contact Number"
+                android:inputType="number"
+                android:maxLength="10"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -78,7 +83,9 @@
                 android:id="@+id/edtContactTwo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Contact Number" />
+                android:hint="Contact Number"
+                android:inputType="number"
+                android:maxLength="10"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
@@ -115,7 +122,8 @@
                 android:id="@+id/edtEmailId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email_Id" />
+                android:hint="Email_Id"
+                android:inputType="textEmailAddress"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -153,54 +161,56 @@
             app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            android:weightSum="12">
 
             <Button
                 android:id="@+id/buttonOneLiterDecrease"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:text="-" />
 
             <EditText
-                android:id="@+id/editOneLiter"
-                android:layout_width="60dp"
+                android:id="@+id/editTextOneLiter"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:ems="10"
+                android:enabled="false"
                 android:gravity="center_horizontal"
                 android:inputType="number"
                 android:text="0" />
 
             <Button
                 android:id="@+id/buttonOneLiterIncrease"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:text="+" />
 
             <Button
                 android:id="@+id/buttonHalfLiterDecrease"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:text="-" />
 
             <EditText
                 android:id="@+id/editTextHalfLiter"
-                android:layout_width="60dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
+                android:layout_weight="2"
                 android:gravity="center_horizontal"
                 android:inputType="number"
+                android:enabled="false"
                 tools:text="0" />
 
             <Button
                 android:id="@+id/buttonHalfLiterIncrease"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:text="+" />
         </LinearLayout>
 
@@ -213,13 +223,14 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@+id/textInputLayout8"
             app:layout_constraintStart_toStartOf="@+id/linearLayout4"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxDaily">
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupDeliveryOn">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtRate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Rate" />
+                android:hint="Rate"
+                android:inputType="numberDecimal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -235,7 +246,8 @@
                 android:id="@+id/edtDeliveryCharges"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Delivery Charges" />
+                android:hint="Delivery Charges"
+                android:inputType="numberDecimal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <FrameLayout
@@ -301,6 +313,7 @@
                 android:id="@+id/edtSerialNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:hint="Serial Number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -318,39 +331,42 @@
                 android:id="@+id/edtRouteSequence"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Route Sequence" />
+                android:hint="Route Sequence"
+                android:inputType="number"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <CheckBox
-            android:id="@+id/checkBoxDaily"
+        <RadioGroup
+            android:id="@+id/radioGroupDeliveryOn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="Daily"
-            app:layout_constraintEnd_toStartOf="@+id/checkBoxEvenDay"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout4"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
-
-        <CheckBox
-            android:id="@+id/checkBoxOddDay"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Odd Day"
+            android:orientation="horizontal"
+            android:weightSum="9"
+            android:padding="4dp"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxEvenDay"
-            app:layout_constraintTop_toTopOf="@+id/checkBoxDaily" />
+            app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
-        <CheckBox
-            android:id="@+id/checkBoxEvenDay"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Even Day"
-            app:layout_constraintEnd_toStartOf="@+id/checkBoxOddDay"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxDaily"
-            app:layout_constraintTop_toTopOf="@+id/checkBoxDaily" />
+            <RadioButton
+                android:id="@+id/radioButtonDaily"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:text="Daily" />
+
+            <RadioButton
+                android:id="@+id/radioButtonEvenDay"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:text="EvenDay" />
+
+            <RadioButton
+                android:id="@+id/radioButtonOddDay"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:text="OddDay" />
+        </RadioGroup>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

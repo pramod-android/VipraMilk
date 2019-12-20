@@ -57,6 +57,11 @@ public class CustomerData implements Serializable {
     @ColumnInfo(name = "contact_whatsapp")
     private String contactWhatsapp;
 
+    @SerializedName("contact_email")
+    @Expose
+    @ColumnInfo(name = "contact_email")
+    private String contactEmail;
+
     @SerializedName("qty_one_ltr")
     @Expose
     @ColumnInfo(name = "qty_one_ltr")
@@ -271,5 +276,13 @@ public class CustomerData implements Serializable {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
     }
 }

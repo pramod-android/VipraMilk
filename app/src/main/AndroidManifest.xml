@@ -12,7 +12,8 @@
         <activity android:name=".activity.CustomerListActivity">
 
         </activity>
-        <activity android:name=".activity.AddCustomerActivity" />
+        <activity android:name=".activity.AddCustomerActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
