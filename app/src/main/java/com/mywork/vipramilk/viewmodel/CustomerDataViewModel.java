@@ -32,4 +32,8 @@ public class CustomerDataViewModel extends AndroidViewModel {
         customerDataRepository.updateCustomerData(customerData);
     }
 
+    public void moveToDeleted(boolean isActive, int id) {
+        customerDataRepository.moveToDeleted(isActive,id);
+    }
+
 }

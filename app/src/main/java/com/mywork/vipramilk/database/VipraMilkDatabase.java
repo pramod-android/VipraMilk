@@ -18,7 +18,7 @@ public abstract class VipraMilkDatabase extends RoomDatabase {
     public abstract CustomerDataDao customerDataDao();
 
     private static volatile VipraMilkDatabase INSTANCE;
-    private static final int NUMBER_OF_THREADS = 4;
+    private static final int NUMBER_OF_THREADS = 6;
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 

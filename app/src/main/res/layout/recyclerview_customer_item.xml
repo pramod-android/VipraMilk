@@ -15,23 +15,23 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="8">
+            android:layout_weight="8"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textViewName"
                 style="@style/titleStyle"
-                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:text="aaaaa" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="10"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:weightSum="10">
 
                 <TextView
                     android:id="@+id/textViewContact"
@@ -51,28 +51,36 @@
             </LinearLayout>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/imageViewEdit"
                 style="@style/contactStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="2"
-                android:src="@drawable/ic_edit"
-                android:layout_gravity="center"/>
+                android:src="@drawable/ic_edit" />
+
             <ImageView
                 android:id="@+id/imageViewContactWhatsApp"
                 style="@style/contactStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="2"
-                android:src="@drawable/ic_chat"
-                android:layout_gravity="center"/>
+                android:src="@drawable/ic_chat" />
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/imageViewDelete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_delete" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

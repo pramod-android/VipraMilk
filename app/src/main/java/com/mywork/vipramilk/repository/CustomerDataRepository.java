@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import com.mywork.vipramilk.dao.CustomerDataDao;
 import com.mywork.vipramilk.database.VipraMilkDatabase;
+import com.mywork.vipramilk.entity.Customer;
 import com.mywork.vipramilk.entity.CustomerData;
 
 import java.util.List;
@@ -14,10 +15,7 @@ public class CustomerDataRepository {
     private CustomerDataDao customerDataDao;
     private LiveData<List<CustomerData>> cutomerDataList;
 
-    // Note that in order to unit test the WordRepository, you have to remove the Application
-    // dependency. This adds complexity and much more code, and this sample is not about testing.
-    // See the BasicSample in the android-architecture-components repository at
-    // https://github.com/googlesamples
+
     public CustomerDataRepository(Application application) {
         VipraMilkDatabase db = VipraMilkDatabase.getDatabase(application);
         customerDataDao = db.customerDataDao();
@@ -41,6 +39,12 @@ public class CustomerDataRepository {
     public void updateCustomerData(CustomerData customerData) {
         VipraMilkDatabase.databaseWriteExecutor.execute(() -> {
             customerDataDao.updateCustomerData(customerData);
+        });
+    }
+
+    public void moveToDeleted(boolean isActive, int id) {
+        VipraMilkDatabase.databaseWriteExecutor.execute(() -> {
+            customerDataDao.moveToDeleted(isActive,id);
         });
     }
 

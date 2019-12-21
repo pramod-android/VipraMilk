@@ -21,7 +21,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
     class CustomerHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView textViewName, textViewContactNoOne, textViewContactNoTwo;
-        private final ImageView imageViewMessage,imageViewEdit;
+        private final ImageView imageViewMessage,imageViewEdit,imageViewDelete;
 
         private CustomerHolder(View itemView) {
             super(itemView);
@@ -30,10 +30,11 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
             textViewContactNoTwo = itemView.findViewById(R.id.textViewContactTwo);
             imageViewMessage = itemView.findViewById(R.id.imageViewContactWhatsApp);
             imageViewEdit = itemView.findViewById(R.id.imageViewEdit);
-
+            imageViewDelete = itemView.findViewById(R.id.imageViewDelete);
             itemView.setOnClickListener(this);
             imageViewMessage.setOnClickListener(this);
             imageViewEdit.setOnClickListener(this);
+            imageViewDelete.setOnClickListener(this);
         }
 
         public CustomerData getmItem(int position) {
@@ -48,7 +49,9 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
                     mClickListener.onItemMessageClick(v, getmItem(getAdapterPosition()));
                 } if (v.getId() == R.id.imageViewEdit) {
                     mClickListener.onItemEditClick(v, getmItem(getAdapterPosition()));
-                } else {
+                } if (v.getId() == R.id.imageViewDelete) {
+                    mClickListener.onItemDeleteClick(v, getmItem(getAdapterPosition()));
+                }else {
                     mClickListener.onItemClick(v, getmItem(getAdapterPosition()));
                 }
             }
@@ -105,6 +108,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
         void onItemMessageClick(View view, CustomerData customerData);
         void onItemEditClick(View view, CustomerData customerData);
+        void onItemDeleteClick(View view, CustomerData customerData);
 
     }
 }

@@ -64,8 +64,9 @@ public class AddCustomerActivity extends AppCompatActivity {
                     CustomerData custData=GetUserInputsAndValidate();
                     custData.setCustomerId(customerData.getCustomerId());
                     customerDataViewModel.updateCustomerData(custData);
+                }else {
+                    customerDataViewModel.insertCustomerData(GetUserInputsAndValidate());
                 }
-                customerDataViewModel.insertCustomerData(GetUserInputsAndValidate());
                 finish();
             }
         });
@@ -191,7 +192,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         }
 
         customerData.setContactWhatsapp(whatsNo);
-
+        customerData.setActive(true);
         return customerData;
     }
 

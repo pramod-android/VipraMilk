@@ -89,6 +89,11 @@ public class CustomerListActivity extends AppCompatActivity implements CustomerL
         startActivity(intent);
     }
 
+    @Override
+    public void onItemDeleteClick(View view, CustomerData customerData) {
+        customerDataViewModel.moveToDeleted(false,customerData.getcustomerId());
+    }
+
     private void openWhatsApp(String number) {
         try {
             number = number.replace(" ", "").replace("+", "");
