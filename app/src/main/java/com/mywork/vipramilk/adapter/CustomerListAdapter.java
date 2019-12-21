@@ -1,4 +1,4 @@
-package com.mywork.vipramilk;
+package com.mywork.vipramilk.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mywork.vipramilk.entity.Customer;
+import com.mywork.vipramilk.R;
 import com.mywork.vipramilk.entity.CustomerData;
 
 import java.util.List;

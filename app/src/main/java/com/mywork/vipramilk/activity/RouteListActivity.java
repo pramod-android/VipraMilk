@@ -16,43 +16,47 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mywork.vipramilk.adapter.CustomerListAdapter;
 import com.mywork.vipramilk.R;
+import com.mywork.vipramilk.adapter.CustomerListAdapter;
+
+import com.mywork.vipramilk.adapter.RouteListAdapter;
+
 import com.mywork.vipramilk.entity.CustomerData;
-import com.mywork.vipramilk.viewmodel.CustomerDataViewModel;
+import com.mywork.vipramilk.entity.RouteData;
+
+import com.mywork.vipramilk.viewmodel.RouteDataViewModel;
 
 import java.util.List;
 
-public class CustomerListActivity extends AppCompatActivity implements CustomerListAdapter.ItemClickListener {
-    private static final String TAG = "CustomerListActivity";
-    private CustomerDataViewModel customerDataViewModel;
+public class RouteListActivity extends AppCompatActivity implements RouteListAdapter.ItemClickListener {
+    private static final String TAG = "RouteListActivity";
+    private RouteDataViewModel routeDataViewModel;
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_list);
+        setContentView(R.layout.activity_route_list);
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final CustomerListAdapter adapter = new CustomerListAdapter(this);
+        final RouteListAdapter adapter = new RouteListAdapter(this);
         recyclerView.setAdapter(adapter);
         adapter.setClickListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        customerDataViewModel = new ViewModelProvider(this).get(CustomerDataViewModel.class);
+        routeDataViewModel = new ViewModelProvider(this).get(RouteDataViewModel.class);
 
-        customerDataViewModel.getAllCustomers().observe(this, new Observer<List<CustomerData>>() {
+        routeDataViewModel.getAllRoutes().observe(this, new Observer<List<RouteData>>() {
             @Override
-            public void onChanged(@Nullable final List<CustomerData> customerDataList) {
+            public void onChanged(@Nullable final List<RouteData> routeDataList) {
                 // Update the cached copy of the words in the adapter.
-                adapter.setCustomers(customerDataList);
+                adapter.setRoutes(routeDataList);
             }
         });
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CustomerListActivity.this, AddCustomerActivity.class);
+                Intent intent = new Intent(RouteListActivity.this, AddCustomerActivity.class);
                 startActivity(intent);
             }
         });
@@ -62,7 +66,7 @@ public class CustomerListActivity extends AppCompatActivity implements CustomerL
 
         if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
 //            CustomerData customerData =new CustomerData(data.getSerializableExtra(AddCustomerActivity.EXTRA_REPLY));
-//            customerDataViewModel.insertCustomerData(customerData);
+//            routeDataViewModel.insertCustomerData(customerData);
         } else {
             Toast.makeText(
                     getApplicationContext(),
@@ -72,38 +76,21 @@ public class CustomerListActivity extends AppCompatActivity implements CustomerL
     }
 
     @Override
-    public void onItemClick(View view, CustomerData customerData) {
+    public void onItemClick(View view, RouteData routeData) {
         Toast.makeText(this, "Item click", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onItemMessageClick(View view, CustomerData customerData) {
-        openWhatsApp(customerData.getContactWhatsapp());
+    public void onItemMessageClick(View view, RouteData routeData) {
     }
 
     @Override
-    public void onItemEditClick(View view, CustomerData customerData) {
-        Intent intent = new Intent(CustomerListActivity.this, AddCustomerActivity.class);
-        intent.putExtra("customerdata",customerData);
+    public void onItemEditClick(View view, RouteData routeData) {
+        Intent intent = new Intent(RouteListActivity.this, AddCustomerActivity.class);
+        intent.putExtra("routeData",routeData);
         startActivity(intent);
     }
 
-    @Override
-    public void onItemDeleteClick(View view, CustomerData customerData) {
-        customerDataViewModel.moveToDeleted(false,customerData.getcustomerId());
-    }
 
-    private void openWhatsApp(String number) {
-        try {
-            number = number.replace(" ", "").replace("+", "");
 
-            Intent sendIntent = new Intent("android.intent.action.MAIN");
-            sendIntent.setComponent(new ComponentName("com.whatsapp","com.whatsapp.Conversation"));
-            sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(number)+"@s.whatsapp.net");
-            startActivity(sendIntent);
-
-        } catch(Exception e) {
-            Log.e(TAG, "ERROR_OPEN_MESSANGER"+e.toString());
-        }
-    }
 }

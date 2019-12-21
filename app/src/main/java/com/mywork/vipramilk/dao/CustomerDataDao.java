@@ -13,8 +13,7 @@ import java.util.List;
 
 @Dao
 public interface CustomerDataDao {
-    // allowing the insert of the same word multiple times by passing a
-    // conflict resolution strategy
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertCustomerData(CustomerData customerData);
 
