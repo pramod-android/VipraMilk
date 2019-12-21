@@ -21,6 +21,7 @@
             <TextView
                 android:id="@+id/textViewName"
                 style="@style/titleStyle"
+                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="aaaaa" />
@@ -28,7 +29,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="10">
+                android:weightSum="10"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:id="@+id/textViewContact"
@@ -48,13 +51,28 @@
             </LinearLayout>
 
         </LinearLayout>
-        <ImageView
-            android:id="@+id/imageViewContactWhatsApp"
-            style="@style/contactStyle"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="2"
-            android:src="@drawable/ic_chat"
-            android:layout_gravity="center"/>
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/imageViewEdit"
+                style="@style/contactStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:src="@drawable/ic_edit"
+                android:layout_gravity="center"/>
+            <ImageView
+                android:id="@+id/imageViewContactWhatsApp"
+                style="@style/contactStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:src="@drawable/ic_chat"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -28,4 +28,8 @@ public class CustomerDataViewModel extends AndroidViewModel {
         customerDataRepository.insertCustomerData(customerData);
     }
 
+    public void updateCustomerData(CustomerData customerData) {
+        customerDataRepository.updateCustomerData(customerData);
+    }
+
 }

@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.mywork.vipramilk.entity.CustomerData;
 
@@ -16,6 +17,9 @@ public interface CustomerDataDao {
     // conflict resolution strategy
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertCustomerData(CustomerData customerData);
+
+    @Update(onConflict = OnConflictStrategy.IGNORE)
+    void updateCustomerData(CustomerData customerData);
 
     @Query("DELETE FROM customer_table")
     void deleteAll();

@@ -54,7 +54,7 @@ public class CustomerListActivity extends AppCompatActivity implements CustomerL
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CustomerListActivity.this, AddCustomerActivity.class);
-                startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
+                startActivity(intent);
             }
         });
     }
@@ -80,13 +80,15 @@ public class CustomerListActivity extends AppCompatActivity implements CustomerL
     @Override
     public void onItemMessageClick(View view, CustomerData customerData) {
         openWhatsApp(customerData.getContactWhatsapp());
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, customerData.getAddress());
-        sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(customerData.getContactWhatsapp())+"@s.whatsapp.net");
-        sendIntent.setType("text/plain");
-        startActivity(sendIntent);
     }
+
+    @Override
+    public void onItemEditClick(View view, CustomerData customerData) {
+        Intent intent = new Intent(CustomerListActivity.this, AddCustomerActivity.class);
+        intent.putExtra("customerdata",customerData);
+        startActivity(intent);
+    }
+
     private void openWhatsApp(String number) {
         try {
             number = number.replace(" ", "").replace("+", "");

@@ -102,6 +102,10 @@ public class CustomerData implements Serializable {
     @ColumnInfo(name = "date")
     private String date;
 
+    @SerializedName("is_active")
+    @Expose
+    @ColumnInfo(name = "is_active")
+    private boolean isActive;
 
 
     public int getcustomerId() {
@@ -285,4 +289,13 @@ public class CustomerData implements Serializable {
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
     }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }
+

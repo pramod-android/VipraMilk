@@ -21,7 +21,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
     class CustomerHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView textViewName, textViewContactNoOne, textViewContactNoTwo;
-        private final ImageView imageViewMessage;
+        private final ImageView imageViewMessage,imageViewEdit;
 
         private CustomerHolder(View itemView) {
             super(itemView);
@@ -29,9 +29,11 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
             textViewContactNoOne = itemView.findViewById(R.id.textViewContact);
             textViewContactNoTwo = itemView.findViewById(R.id.textViewContactTwo);
             imageViewMessage = itemView.findViewById(R.id.imageViewContactWhatsApp);
+            imageViewEdit = itemView.findViewById(R.id.imageViewEdit);
 
             itemView.setOnClickListener(this);
             imageViewMessage.setOnClickListener(this);
+            imageViewEdit.setOnClickListener(this);
         }
 
         public CustomerData getmItem(int position) {
@@ -44,6 +46,8 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
             if (mClickListener != null) {
                 if (v.getId() == R.id.imageViewContactWhatsApp) {
                     mClickListener.onItemMessageClick(v, getmItem(getAdapterPosition()));
+                } if (v.getId() == R.id.imageViewEdit) {
+                    mClickListener.onItemEditClick(v, getmItem(getAdapterPosition()));
                 } else {
                     mClickListener.onItemClick(v, getmItem(getAdapterPosition()));
                 }
@@ -100,6 +104,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         void onItemClick(View view, CustomerData customerData);
 
         void onItemMessageClick(View view, CustomerData customerData);
+        void onItemEditClick(View view, CustomerData customerData);
 
     }
 }

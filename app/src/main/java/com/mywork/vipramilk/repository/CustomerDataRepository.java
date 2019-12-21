@@ -37,4 +37,11 @@ public class CustomerDataRepository {
             customerDataDao.insertCustomerData(customerData);
         });
     }
+
+    public void updateCustomerData(CustomerData customerData) {
+        VipraMilkDatabase.databaseWriteExecutor.execute(() -> {
+            customerDataDao.updateCustomerData(customerData);
+        });
+    }
+
 }

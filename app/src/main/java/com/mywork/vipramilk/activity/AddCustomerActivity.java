@@ -32,9 +32,12 @@ public class AddCustomerActivity extends AppCompatActivity {
     Spinner spinnerRoute;
     Button buttonSubmit, buttonOneLtrIncrease, buttonOneLtrDecrease, buttonHalfLtrIncrease, getButtonHalfLtrDecrease;
     RadioGroup radioGroupDeliveryOn;
+    RadioButton rbDaily, rbEven, rbOdd;
 
     private CustomerDataViewModel customerDataViewModel;
-    int oneltr=0,halfLtr=0;
+    int oneltr = 0, halfLtr = 0;
+    boolean isUpdateReq = false;
+    CustomerData customerData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +47,24 @@ public class AddCustomerActivity extends AppCompatActivity {
         editTextCustName = (EditText) findViewById(R.id.edtTextCustName);
         buttonSubmit = findViewById(R.id.buttonSubmit);
 
+        Intent intent = getIntent();
+        if (intent.hasExtra("customerdata")) {
+            customerData = (CustomerData) intent.getSerializableExtra("customerdata");
+            UpdateView(customerData);
+            isUpdateReq = true;
+        }
+
+
         customerDataViewModel = new ViewModelProvider(this).get(CustomerDataViewModel.class);
 
 
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                if (isUpdateReq) {
+                    CustomerData custData=GetUserInputsAndValidate();
+                    custData.setCustomerId(customerData.getCustomerId());
+                    customerDataViewModel.updateCustomerData(custData);
+                }
                 customerDataViewModel.insertCustomerData(GetUserInputsAndValidate());
                 finish();
             }
@@ -73,6 +89,56 @@ public class AddCustomerActivity extends AppCompatActivity {
                 UpdateHalfLtr(0);
             }
         });
+
+
+    }
+
+    private void UpdateView(CustomerData customerData) {
+        editTextCustName.setText(customerData.getCustomerName());
+        editTextAddress.setText(customerData.getAddress());
+        editTextConTactOne.setText(customerData.getContactOne());
+        editTextContactTwo.setText(customerData.getContactTwo());
+        editTextEmail.setText(customerData.getContactEmail());
+
+        editTextSerialNo.setText(String.valueOf(customerData.getcustomerSerialNo()));
+        editTextRouteSeq.setText(String.valueOf(customerData.getRouteSequence()));
+        editTextOneLtrQty.setText(String.valueOf(customerData.getQtyOneLtr()));
+        editTextHalfQty.setText(String.valueOf(customerData.getQtyHalfLtr()));
+
+        editTextRate.setText(String.valueOf(customerData.getRate()));
+        editTextDeliveryCharges.setText(String.valueOf(customerData.getDeliveryCharges()));
+
+
+        if (customerData.getContactOne().equals(customerData.getContactWhatsapp())) {
+            checkBoxContactOne.setChecked(true);
+            checkBoxContactTwo.setChecked(false);
+        }
+        if (customerData.getContactOne().equals(customerData.getContactWhatsapp())) {
+            checkBoxContactOne.setChecked(false);
+            checkBoxContactTwo.setChecked(true);
+        }
+
+        switch (customerData.getDeliveryOn()) {
+
+            case ("Daily"): {
+                radioGroupDeliveryOn.clearCheck();
+
+                rbDaily.setChecked(true);
+                break;
+            }
+            case ("EvenDay"): {
+                radioGroupDeliveryOn.clearCheck();
+                rbEven.setChecked(true);
+                break;
+            }
+            case ("OddDay"): {
+                radioGroupDeliveryOn.clearCheck();
+                rbOdd.setChecked(true);
+
+                break;
+            }
+        }
+        buttonSubmit.setText("Update");
     }
 
     private CustomerData GetUserInputsAndValidate() {
@@ -111,14 +177,16 @@ public class AddCustomerActivity extends AppCompatActivity {
         customerData.setRate(Double.valueOf(editTextRate.getText().toString()));
         customerData.setDeliveryCharges(Double.valueOf(editTextDeliveryCharges.getText().toString()));
 
-        String deliveryDays = ((RadioButton) radioGroupDeliveryOn.findViewById(radioGroupDeliveryOn.getCheckedRadioButtonId())).getText().toString();
+        String deliveryon = ((RadioButton) radioGroupDeliveryOn.findViewById(radioGroupDeliveryOn.getCheckedRadioButtonId())).getText().toString();
 
-        customerData.setDeliveryOn(deliveryDays);
+        customerData.setDeliveryOn(deliveryon);
 
         String whatsNo = "";
         if (checkBoxContactOne.isChecked()) {
             whatsNo = editTextConTactOne.getText().toString();
-        } else if (checkBoxContactTwo.isChecked()) {
+        }
+
+        if (checkBoxContactTwo.isChecked()) {
             whatsNo = editTextContactTwo.getText().toString();
         }
 
@@ -148,38 +216,43 @@ public class AddCustomerActivity extends AppCompatActivity {
         buttonSubmit = findViewById(R.id.buttonSubmit);
 
         checkBoxContactOne = (CheckBox) findViewById(R.id.checkBoxContactOne);
-        checkBoxContactTwo = (CheckBox) findViewById(R.id.checkBoxContactOne);
+        checkBoxContactTwo = (CheckBox) findViewById(R.id.checkBoxContactTwo);
 
         radioGroupDeliveryOn = (RadioGroup) findViewById(R.id.radioGroupDeliveryOn);
 
         spinnerRoute = (Spinner) findViewById(R.id.spinnerSelectRoute);
 
+        rbDaily = (RadioButton) findViewById(R.id.radioButtonDaily);
+        rbEven = (RadioButton) findViewById(R.id.radioButtonEvenDay);
+        rbOdd = (RadioButton) findViewById(R.id.radioButtonOddDay);
+
+
     }
 
-   private void UpdateOneLtr(int val){
-        if(val==0){
-            if(oneltr>0){
+    private void UpdateOneLtr(int val) {
+        if (val == 0) {
+            if (oneltr > 0) {
                 --oneltr;
                 editTextOneLtrQty.setText(String.valueOf(oneltr));
             }
         }
-       if(val==1){
-           if(oneltr<10){
-               ++oneltr;
-               editTextOneLtrQty.setText(String.valueOf(oneltr));
-           }
-       }
-   }
+        if (val == 1) {
+            if (oneltr < 10) {
+                ++oneltr;
+                editTextOneLtrQty.setText(String.valueOf(oneltr));
+            }
+        }
+    }
 
-    private void UpdateHalfLtr(int val){
-        if(val==0){
-            if(halfLtr>0){
+    private void UpdateHalfLtr(int val) {
+        if (val == 0) {
+            if (halfLtr > 0) {
                 --halfLtr;
                 editTextHalfQty.setText(String.valueOf(halfLtr));
             }
         }
-        if(val==1){
-            if(halfLtr<10){
+        if (val == 1) {
+            if (halfLtr < 10) {
                 ++halfLtr;
                 editTextHalfQty.setText(String.valueOf(halfLtr));
             }
