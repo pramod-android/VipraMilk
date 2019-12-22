@@ -27,15 +27,15 @@ public class AddRouteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_route);
-
+        BindUi();
         Intent intent = getIntent();
-        if (intent.hasExtra("routedata")) {
-            routeData = (RouteData) intent.getSerializableExtra("routedata");
+        if (intent.hasExtra("routeData")) {
+            routeData = (RouteData) intent.getSerializableExtra("routeData");
             UpdateView(routeData);
             isUpdateReq = true;
         }
 
-        BindUi();
+
 
         routeDataViewModel=new ViewModelProvider(this).get(RouteDataViewModel.class);
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
@@ -44,7 +44,7 @@ public class AddRouteActivity extends AppCompatActivity {
                 if (isUpdateReq) {
                     RouteData rtData=GetUserInputsAndValidate();
                     rtData.setRouteId(routeData.getRouteId());
-                    routeDataViewModel.updateRouteData(routeData);
+                    routeDataViewModel.updateRouteData(rtData);
                 }else {
                     routeDataViewModel.insertRouteData(GetUserInputsAndValidate());
                 }
@@ -69,7 +69,7 @@ public class AddRouteActivity extends AppCompatActivity {
         return routeData;
     }
     private void UpdateView(RouteData routeData) {
-        editTextRouteNo.setText(routeData.getRouteNumber());
+        editTextRouteNo.setText(String.valueOf(routeData.getRouteNumber()));
         editTextRouteName.setText(routeData.getRouteName());
         editTextRouteArea.setText(routeData.getRouteArea());
 

@@ -26,37 +26,36 @@
                 android:layout_margin="10dp"
                 android:text="aaaaa" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/textViewRouteAddress"
+                style="@style/contactStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:weightSum="10">
+                android:layout_marginLeft="10dp"
+                android:layout_weight="5"
+                android:text="aaaaa" />
 
-                <TextView
-                    android:id="@+id/textViewRouteNo"
-                    style="@style/contactStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:text="aaaaa" />
-
-                <TextView
-                    android:id="@+id/textViewRouteAddress"
-                    style="@style/contactStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:text="aaaaa" />
-            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
             android:layout_weight="2"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/textViewRouteNo"
+                style="@style/contactStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:gravity="right"
+                android:padding="10dp"
+                android:text="aaaaa" />
 
             <ImageView
                 android:id="@+id/imageViewEdit"
@@ -66,15 +65,6 @@
                 android:layout_gravity="center"
                 android:layout_weight="2"
                 android:src="@drawable/ic_edit" />
-
-            <ImageView
-                android:id="@+id/imageViewContactWhatsApp"
-                style="@style/contactStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:src="@drawable/ic_chat" />
         </LinearLayout>
 
     </LinearLayout>

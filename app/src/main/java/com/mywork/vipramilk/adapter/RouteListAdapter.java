@@ -22,18 +22,17 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
 
     class RouteHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView textViewName, textViewContactNoOne, textViewContactNoTwo;
-        private final ImageView imageViewMessage, imageViewEdit;//, imageViewDelete;
+        private final ImageView imageViewEdit;//, imageViewDelete;
 
         private RouteHolder(View itemView) {
             super(itemView);
             textViewName = itemView.findViewById(R.id.textViewRouteName);
             textViewContactNoOne = itemView.findViewById(R.id.textViewRouteNo);
             textViewContactNoTwo = itemView.findViewById(R.id.textViewRouteAddress);
-            imageViewMessage = itemView.findViewById(R.id.imageViewContactWhatsApp);
+           // imageViewMessage = itemView.findViewById(R.id.imageViewContactWhatsApp);
             imageViewEdit = itemView.findViewById(R.id.imageViewEdit);
            // imageViewDelete = itemView.findViewById(R.id.imageViewDelete);
             itemView.setOnClickListener(this);
-            imageViewMessage.setOnClickListener(this);
             imageViewEdit.setOnClickListener(this);
             //imageViewDelete.setOnClickListener(this);
         }
@@ -46,9 +45,7 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
         @Override
         public void onClick(View v) {
             if (mClickListener != null) {
-                if (v.getId() == R.id.imageViewContactWhatsApp) {
-                    mClickListener.onItemMessageClick(v, getmItem(getAdapterPosition()));
-                }
+
                 if (v.getId() == R.id.imageViewEdit) {
                     mClickListener.onItemEditClick(v, getmItem(getAdapterPosition()));
                 } else {
@@ -105,8 +102,6 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
 
     public interface ItemClickListener {
         void onItemClick(View view, RouteData routeData);
-
-        void onItemMessageClick(View view,  RouteData routeData);
 
         void onItemEditClick(View view,  RouteData routeData);
 

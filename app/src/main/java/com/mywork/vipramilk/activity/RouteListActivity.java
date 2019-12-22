@@ -80,9 +80,6 @@ public class RouteListActivity extends AppCompatActivity implements RouteListAda
         Toast.makeText(this, "Item click", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onItemMessageClick(View view, RouteData routeData) {
-    }
 
     @Override
     public void onItemEditClick(View view, RouteData routeData) {
@@ -90,7 +87,5 @@ public class RouteListActivity extends AppCompatActivity implements RouteListAda
         intent.putExtra("routeData",routeData);
         startActivity(intent);
     }
-
-
 
 }

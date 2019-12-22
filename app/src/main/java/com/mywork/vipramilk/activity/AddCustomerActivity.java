@@ -1,6 +1,7 @@
 package com.mywork.vipramilk.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -14,8 +15,13 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.mywork.vipramilk.R;
+import com.mywork.vipramilk.adapter.SpinnerAdapter;
 import com.mywork.vipramilk.entity.CustomerData;
+import com.mywork.vipramilk.entity.RouteData;
 import com.mywork.vipramilk.viewmodel.CustomerDataViewModel;
+import com.mywork.vipramilk.viewmodel.RouteDataViewModel;
+
+import java.util.List;
 
 public class AddCustomerActivity extends AppCompatActivity {
     public static final String EXTRA_REPLY = "com.mywork.vipramilk.REPLY";
@@ -29,9 +35,13 @@ public class AddCustomerActivity extends AppCompatActivity {
     RadioButton rbDaily, rbEven, rbOdd;
 
     private CustomerDataViewModel customerDataViewModel;
+    private RouteDataViewModel routeDataViewModel;
+
     int oneltr = 0, halfLtr = 0;
     boolean isUpdateReq = false;
     CustomerData customerData;
+
+    android.widget.SpinnerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +58,31 @@ public class AddCustomerActivity extends AppCompatActivity {
             isUpdateReq = true;
         }
 
-
         customerDataViewModel = new ViewModelProvider(this).get(CustomerDataViewModel.class);
+        routeDataViewModel = new ViewModelProvider(this).get(RouteDataViewModel.class);
 
+        routeDataViewModel.getAllRoutes().observe(this, new Observer<List<RouteData>>() {
+            @Override
+            public void onChanged(List<RouteData> routeData) {
 
+                RouteData routeData1=new RouteData();
+                routeData1.setRouteName("Select Route");
+                routeData1.setRouteNumber(000);
+                routeData.add(0,routeData1);
+
+                adapter = new SpinnerAdapter(AddCustomerActivity.this,
+                        android.R.layout.simple_spinner_item,
+                        routeData);
+                spinnerRoute.setAdapter(adapter);
+            }
+        });
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (isUpdateReq) {
-                    CustomerData custData=GetUserInputsAndValidate();
+                    CustomerData custData = GetUserInputsAndValidate();
                     custData.setCustomerId(customerData.getCustomerId());
                     customerDataViewModel.updateCustomerData(custData);
-                }else {
+                } else {
                     customerDataViewModel.insertCustomerData(GetUserInputsAndValidate());
                 }
                 finish();
@@ -138,25 +162,6 @@ public class AddCustomerActivity extends AppCompatActivity {
 
     private CustomerData GetUserInputsAndValidate() {
         CustomerData customerData = new CustomerData();
-
-//        String custName, address, contactOne, contactTwo, contactWhatsApp, contactEmail;
-//        int serialNo, seqNo, oneLtr, halfLtr, routeId;
-//        double rate, deliveryCharges;
-//
-//        custName = editTextCustName.getText().toString();
-//        address = editTextAddress.getText().toString();
-//        contactOne = editTextConTactOne.getText().toString();
-//        contactTwo = editTextContactTwo.getText().toString();
-//        contactEmail = editTextEmail.getText().toString();
-//
-//        serialNo = Integer.valueOf(editTextSerialNo.getText().toString());
-//        seqNo = Integer.valueOf(editTextRouteSeq.getText().toString());
-//        oneLtr = Integer.valueOf(editTextOneLtrQty.getText().toString());
-//        halfLtr = Integer.valueOf(editTextHalfQty.getText().toString());
-//
-//        rate=Double.valueOf(editTextRate.getText().toString());
-//        deliveryCharges=Double.valueOf(editTextDeliveryCharges.getText().toString());
-
         customerData.setCustomerName(editTextCustName.getText().toString());
 
         customerData.setAddress(editTextAddress.getText().toString());

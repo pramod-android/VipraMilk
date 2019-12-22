@@ -9,13 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AddRouteActivity"></activity>
-        <activity android:name=".activity.RouteListActivity" />
-        <activity android:name=".activity.CustomerListActivity" />
+        <activity android:name=".activity.AddRouteActivity"
+            android:label="Add Route"></activity>
+        <activity android:name=".activity.RouteListActivity"
+            android:label="Route List"/>
+        <activity android:name=".activity.CustomerListActivity"
+            android:label="Customer List"/>
         <activity
             android:name=".activity.AddCustomerActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".MainActivity">
+            android:windowSoftInputMode="adjustResize"
+            android:label="Add Customer"/>
+        <activity android:name=".MainActivity"
+            android:label="Vipra Milk">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
