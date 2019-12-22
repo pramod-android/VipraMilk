@@ -32,7 +32,7 @@ public class RouteData implements Serializable {
     @SerializedName("route_number")
     @Expose
     @ColumnInfo(name = "route_number")
-    private String routeNumber;
+    private int routeNumber;
 
     public int getRouteId() {
         return routeId;
@@ -58,12 +58,11 @@ public class RouteData implements Serializable {
         this.routeArea = routeArea;
     }
 
-    public String getRouteNumber() {
+    public int getRouteNumber() {
         return routeNumber;
     }
 
-    public void setRouteNumber(String routeNumber) {
+    public void setRouteNumber(int routeNumber) {
         this.routeNumber = routeNumber;
     }
-
 }

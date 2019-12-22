@@ -76,7 +76,7 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
             RouteData current = routeDataList.get(position);
             holder.textViewName.setText(current.getRouteName());
 
-            holder.textViewContactNoOne.setText(current.getRouteNumber());
+            holder.textViewContactNoOne.setText(String.valueOf(current.getRouteNumber()));
 
             holder.textViewContactNoTwo.setText(current.getRouteArea());
         } else {

@@ -1,14 +1,10 @@
 package com.mywork.vipramilk.activity;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.room.Update;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,8 +16,6 @@ import android.widget.Spinner;
 import com.mywork.vipramilk.R;
 import com.mywork.vipramilk.entity.CustomerData;
 import com.mywork.vipramilk.viewmodel.CustomerDataViewModel;
-
-import java.util.List;
 
 public class AddCustomerActivity extends AppCompatActivity {
     public static final String EXTRA_REPLY = "com.mywork.vipramilk.REPLY";
@@ -44,7 +38,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_customer);
         BindUi();
-        editTextCustName = (EditText) findViewById(R.id.edtTextCustName);
+        editTextCustName = (EditText) findViewById(R.id.edtTextRouteName);
         buttonSubmit = findViewById(R.id.buttonSubmit);
 
         Intent intent = getIntent();
@@ -197,10 +191,10 @@ public class AddCustomerActivity extends AppCompatActivity {
     }
 
     private void BindUi() {
-        editTextSerialNo = (EditText) findViewById(R.id.edtSerialNumber);
+        editTextSerialNo = (EditText) findViewById(R.id.edtRouteNumber);
         editTextRouteSeq = (EditText) findViewById(R.id.edtRouteSequence);
-        editTextCustName = (EditText) findViewById(R.id.edtTextCustName);
-        editTextAddress = (EditText) findViewById(R.id.edtTextAddress);
+        editTextCustName = (EditText) findViewById(R.id.edtTextRouteName);
+        editTextAddress = (EditText) findViewById(R.id.edtTextArea);
         editTextConTactOne = (EditText) findViewById(R.id.edtContactOne);
         editTextContactTwo = (EditText) findViewById(R.id.edtContactTwo);
         editTextEmail = (EditText) findViewById(R.id.edtEmailId);

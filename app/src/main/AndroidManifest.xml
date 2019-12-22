@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.RouteListActivity"></activity>
-        <activity android:name=".activity.CustomerListActivity"></activity>
+        <activity android:name=".activity.AddRouteActivity"></activity>
+        <activity android:name=".activity.RouteListActivity" />
+        <activity android:name=".activity.CustomerListActivity" />
         <activity
             android:name=".activity.AddCustomerActivity"
             android:windowSoftInputMode="adjustResize" />

@@ -25,11 +25,11 @@ public class RouteDataViewModel extends AndroidViewModel {
 
     public LiveData<List<RouteData>> getAllRoutes() { return routeDataList; }
 
-    public void insertCustomerData(RouteData routeData) {
+    public void insertRouteData(RouteData routeData) {
         routeDataRepository.insertRouteData(routeData);
     }
 
-    public void updateCustomerData(RouteData routeData) {
+    public void updateRouteData(RouteData routeData) {
         routeDataRepository.updateRouteData(routeData);
     }
 

@@ -56,7 +56,7 @@ public class RouteListActivity extends AppCompatActivity implements RouteListAda
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RouteListActivity.this, AddCustomerActivity.class);
+                Intent intent = new Intent(RouteListActivity.this, AddRouteActivity.class);
                 startActivity(intent);
             }
         });
@@ -86,7 +86,7 @@ public class RouteListActivity extends AppCompatActivity implements RouteListAda
 
     @Override
     public void onItemEditClick(View view, RouteData routeData) {
-        Intent intent = new Intent(RouteListActivity.this, AddCustomerActivity.class);
+        Intent intent = new Intent(RouteListActivity.this, AddRouteActivity.class);
         intent.putExtra("routeData",routeData);
         startActivity(intent);
     }
