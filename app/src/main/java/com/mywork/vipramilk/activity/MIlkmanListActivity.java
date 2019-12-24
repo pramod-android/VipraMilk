@@ -16,68 +16,73 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mywork.vipramilk.adapter.CustomerListAdapter;
 import com.mywork.vipramilk.R;
+import com.mywork.vipramilk.adapter.CustomerListAdapter;
+import com.mywork.vipramilk.adapter.MilkmanListAdapter;
 import com.mywork.vipramilk.entity.CustomerData;
+import com.mywork.vipramilk.entity.MilkmanData;
 import com.mywork.vipramilk.viewmodel.CustomerDataViewModel;
+import com.mywork.vipramilk.viewmodel.MilkManDataViewModel;
 
 import java.util.List;
 
-public class CustomerListActivity extends AppCompatActivity implements CustomerListAdapter.ItemClickListener {
-    private static final String TAG = "CustomerListActivity";
-    private CustomerDataViewModel customerDataViewModel;
-
+public class MIlkmanListActivity extends AppCompatActivity implements MilkmanListAdapter.ItemClickListener {
+    private static final String TAG = "MIlkmanListActivity";
+    private MilkManDataViewModel milkManDataViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_list);
+        setContentView(R.layout.activity_milkman_list);
+
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final CustomerListAdapter adapter = new CustomerListAdapter(this);
+        final MilkmanListAdapter adapter = new MilkmanListAdapter(this);
         recyclerView.setAdapter(adapter);
         adapter.setClickListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        customerDataViewModel = new ViewModelProvider(this).get(CustomerDataViewModel.class);
+        milkManDataViewModel = new ViewModelProvider(this).get(MilkManDataViewModel.class);
 
-        customerDataViewModel.getAllCustomers().observe(this, new Observer<List<CustomerData>>() {
+        milkManDataViewModel.getAllMilkmans().observe(this, new Observer<List<MilkmanData>>() {
             @Override
-            public void onChanged(@Nullable final List<CustomerData> customerDataList) {
+            public void onChanged(@Nullable final List<MilkmanData> milkmanDataList) {
                 // Update the cached copy of the words in the adapter.
-                adapter.setCustomers(customerDataList);
+                adapter.setCustomers(milkmanDataList);
             }
         });
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CustomerListActivity.this, AddCustomerActivity.class);
+                Intent intent = new Intent(MIlkmanListActivity.this, AddMilkmanActivity.class);
                 startActivity(intent);
             }
         });
     }
 
-
     @Override
-    public void onItemClick(View view, CustomerData customerData) {
+    public void onItemClick(View view, MilkmanData milkmanData) {
         Toast.makeText(this, "Item click", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
-    public void onItemMessageClick(View view, CustomerData customerData) {
-        openWhatsApp(customerData.getContactWhatsapp());
+    public void onItemMessageClick(View view, MilkmanData milkmanData) {
+        openWhatsApp(milkmanData.getContactWhatsapp());
+
     }
 
     @Override
-    public void onItemEditClick(View view, CustomerData customerData) {
-        Intent intent = new Intent(CustomerListActivity.this, AddCustomerActivity.class);
-        intent.putExtra("customerdata",customerData);
+    public void onItemEditClick(View view, MilkmanData milkmanData) {
+        Intent intent = new Intent(MIlkmanListActivity.this, AddMilkmanActivity.class);
+        intent.putExtra("milkmandata",milkmanData);
         startActivity(intent);
     }
 
     @Override
-    public void onItemDeleteClick(View view, CustomerData customerData) {
-        customerDataViewModel.moveToDeleted(false,customerData.getcustomerId());
+    public void onItemDeleteClick(View view, MilkmanData milkmanData) {
+        milkManDataViewModel.deleteMilkMan(milkmanData.getMilkmanId());
+
     }
 
     private void openWhatsApp(String number) {

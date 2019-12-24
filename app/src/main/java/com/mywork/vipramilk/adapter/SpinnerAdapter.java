@@ -45,6 +45,11 @@ public class SpinnerAdapter extends ArrayAdapter<RouteData> {
         return position;
     }
 
+    public long getItemIDByPos(int position){
+
+        return values.get(position).getRouteId();
+    }
+
 
     public void setData(List<RouteData> routeDataList){
         values=routeDataList;

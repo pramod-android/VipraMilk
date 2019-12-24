@@ -41,7 +41,9 @@ public class AddCustomerActivity extends AppCompatActivity {
     boolean isUpdateReq = false;
     CustomerData customerData;
 
-    android.widget.SpinnerAdapter adapter;
+    SpinnerAdapter adapter;
+
+    List<RouteData> routeDataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra("customerdata")) {
             customerData = (CustomerData) intent.getSerializableExtra("customerdata");
-            UpdateView(customerData);
+           // UpdateView(customerData);
             isUpdateReq = true;
         }
 
@@ -64,16 +66,28 @@ public class AddCustomerActivity extends AppCompatActivity {
         routeDataViewModel.getAllRoutes().observe(this, new Observer<List<RouteData>>() {
             @Override
             public void onChanged(List<RouteData> routeData) {
+                if(!isUpdateReq) {
+                    RouteData routeData1 = new RouteData();
+                    routeData1.setRouteName("Select Route");
+                    routeData1.setRouteNumber(000);
+                    routeData.add(0, routeData1);
+                    adapter = new SpinnerAdapter(AddCustomerActivity.this,
+                            android.R.layout.simple_spinner_item,
+                            routeData);
+                    spinnerRoute.setAdapter(adapter);
+                }else {
+                    routeDataList = routeData;
+                    adapter = new SpinnerAdapter(AddCustomerActivity.this,
+                            android.R.layout.simple_spinner_item,
+                            routeData);
+                    spinnerRoute.setAdapter(adapter);
+                    UpdateView(customerData);
+                }
 
-                RouteData routeData1=new RouteData();
-                routeData1.setRouteName("Select Route");
-                routeData1.setRouteNumber(000);
-                routeData.add(0,routeData1);
 
-                adapter = new SpinnerAdapter(AddCustomerActivity.this,
-                        android.R.layout.simple_spinner_item,
-                        routeData);
-                spinnerRoute.setAdapter(adapter);
+
+
+
             }
         });
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +150,14 @@ public class AddCustomerActivity extends AppCompatActivity {
             checkBoxContactOne.setChecked(false);
             checkBoxContactTwo.setChecked(true);
         }
+        for(int i=0;i<routeDataList.size();i++){
+            if(customerData.getRouteId()==routeDataList.get(i).getRouteId()){
+
+                //int t=i+1;
+                spinnerRoute.setSelection(i);
+            }
+        }
+
 
         switch (customerData.getDeliveryOn()) {
 
@@ -157,6 +179,10 @@ public class AddCustomerActivity extends AppCompatActivity {
                 break;
             }
         }
+
+
+
+
         buttonSubmit.setText("Update");
     }
 
@@ -190,8 +216,11 @@ public class AddCustomerActivity extends AppCompatActivity {
             whatsNo = editTextContactTwo.getText().toString();
         }
 
+
         customerData.setContactWhatsapp(whatsNo);
         customerData.setActive(true);
+
+        customerData.setRouteId((int)adapter.getItemIDByPos(spinnerRoute.getSelectedItemPosition()));
         return customerData;
     }
 
