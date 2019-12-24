@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AddMilkmanActivity"></activity>
-        <activity android:name=".activity.MIlkmanListActivity" />
+        <activity android:name=".activity.AddMilkmanActivity"
+            android:label="Add MilkMan"></activity>
+        <activity android:name=".activity.MIlkmanListActivity"
+            android:label="MilkMan List"/>
         <activity
             android:name=".activity.AddRouteActivity"
             android:label="Add Route" />

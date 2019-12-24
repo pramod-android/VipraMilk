@@ -50,7 +50,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_customer);
         BindUi();
-        editTextCustName = (EditText) findViewById(R.id.edtTextRouteName);
+        editTextCustName = (EditText) findViewById(R.id.edtTextCustomerName);
         buttonSubmit = findViewById(R.id.buttonSubmit);
 
         Intent intent = getIntent();
@@ -227,7 +227,7 @@ public class AddCustomerActivity extends AppCompatActivity {
     private void BindUi() {
         editTextSerialNo = (EditText) findViewById(R.id.edtRouteNumber);
         editTextRouteSeq = (EditText) findViewById(R.id.edtRouteSequence);
-        editTextCustName = (EditText) findViewById(R.id.edtTextRouteName);
+        editTextCustName = (EditText) findViewById(R.id.edtTextCustomerName);
         editTextAddress = (EditText) findViewById(R.id.edtTextArea);
         editTextConTactOne = (EditText) findViewById(R.id.edtContactOne);
         editTextContactTwo = (EditText) findViewById(R.id.edtContactTwo);

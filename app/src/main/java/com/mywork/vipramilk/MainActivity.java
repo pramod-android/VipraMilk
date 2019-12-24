@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.mywork.vipramilk.activity.CustomerListActivity;
+import com.mywork.vipramilk.activity.MIlkmanListActivity;
 import com.mywork.vipramilk.activity.RouteListActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void OnRoutesClick(View view) {
         Intent intent=new Intent(MainActivity.this, RouteListActivity.class);
+        startActivity(intent);
+    }
+
+    public void OnMilkMansClick(View view) {
+        Intent intent=new Intent(MainActivity.this, MIlkmanListActivity.class);
         startActivity(intent);
     }
 }
