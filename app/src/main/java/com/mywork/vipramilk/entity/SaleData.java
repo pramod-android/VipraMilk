@@ -1,7 +1,9 @@
 package com.mywork.vipramilk.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -9,6 +11,12 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "sale_data")
 public class SaleData {
 
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @SerializedName("id")
+    @Expose
+    @ColumnInfo(name = "id")
+    private int Id = 0;
 
     @SerializedName("customer_id")
     @Expose
@@ -83,4 +91,11 @@ public class SaleData {
         this.halfLiter = halfLiter;
     }
 
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
 }

@@ -19,10 +19,16 @@ import com.mywork.vipramilk.R;
 import com.mywork.vipramilk.adapter.AdminCustomerListAdapter;
 import com.mywork.vipramilk.adapter.MilkmanCustomerListAdapter;
 import com.mywork.vipramilk.entity.CustomerData;
+import com.mywork.vipramilk.entity.SaleData;
 import com.mywork.vipramilk.viewmodel.CustomerDataViewModel;
 import com.mywork.vipramilk.viewmodel.MilkManDataViewModel;
+import com.mywork.vipramilk.viewmodel.SaleDataViewModel;
 
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class MilkmansProductDeliveryActivity extends AppCompatActivity implements MilkmanCustomerListAdapter.ItemClickListener{
     private static final String TAG = "DeliveryActivity";
@@ -69,9 +75,25 @@ public class MilkmansProductDeliveryActivity extends AppCompatActivity implement
 
     @Override
     public void onItemDeliveredClick(View view, CustomerData customerData) {
-      //  MilkManDataViewModel milkManDataViewModel=new
+        SaleDataViewModel saleDataViewModel=new ViewModelProvider(this).get(SaleDataViewModel.class);
 
+        SaleData saleData=new SaleData();
+        saleData.setCustomerId(customerData.getCustomerId());
+        saleData.setHalfLiter(customerData.getQtyHalfLtr());
+        saleData.setOneLiter(customerData.getQtyOneLtr());
 
+        LocalDateTime now = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            now = LocalDateTime.now();
+            int year = now.getYear();
+            int month = now.getMonthValue();
+            int day = now.getDayOfMonth();
+            saleData.setYear(year);
+            saleData.setMonth(month);
+            saleData.setDay(day);
+        }
+
+        saleDataViewModel.insertSaleData(saleData);
 
 
         //customerDataViewModel.moveToDeleted(false,customerData.getcustomerId());

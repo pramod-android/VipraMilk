@@ -1,13 +1,23 @@
 package com.mywork.vipramilk.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "holiday_data_table")
 public class HolidayData {
+
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @SerializedName("id")
+    @Expose
+    @ColumnInfo(name = "id")
+    private int Id = 0;
+
     @SerializedName("customer_id")
     @Expose
     @ColumnInfo(name = "customer_id")
@@ -417,4 +427,11 @@ public class HolidayData {
         this.day31 = day31;
     }
 
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
 }
