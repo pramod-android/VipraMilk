@@ -8,21 +8,28 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.mywork.vipramilk.dao.CustomerDataDao;
+import com.mywork.vipramilk.dao.HolidayDataDao;
 import com.mywork.vipramilk.dao.MilkmanDataDao;
 import com.mywork.vipramilk.dao.RouteDataDao;
+import com.mywork.vipramilk.dao.SaleDataDao;
 import com.mywork.vipramilk.entity.CustomerData;
+import com.mywork.vipramilk.entity.HolidayData;
 import com.mywork.vipramilk.entity.Milkman;
 import com.mywork.vipramilk.entity.MilkmanData;
 import com.mywork.vipramilk.entity.RouteData;
+import com.mywork.vipramilk.entity.SaleData;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities={CustomerData.class, RouteData.class, MilkmanData.class},version = 1,exportSchema = false)
+@Database(entities={CustomerData.class, RouteData.class, MilkmanData.class, SaleData.class, HolidayData.class},version = 1,exportSchema = false)
 public abstract class VipraMilkDatabase extends RoomDatabase {
     public abstract CustomerDataDao customerDataDao();
     public abstract RouteDataDao routeDataDao();
     public abstract MilkmanDataDao milkmanDataDao();
+    public abstract SaleDataDao saleDataDao();
+    public abstract HolidayDataDao holidayDataDao();
+
 
     private static volatile VipraMilkDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 6;

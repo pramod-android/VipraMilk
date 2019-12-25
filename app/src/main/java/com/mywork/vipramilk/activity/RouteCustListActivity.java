@@ -44,9 +44,7 @@ public class RouteCustListActivity extends AppCompatActivity implements AdminRou
                     adapter.setRoutes(routeDataList);
                 }
             });
-
         }
-
 
         @Override
         public void onItemClick(View view, RouteData routeData) {

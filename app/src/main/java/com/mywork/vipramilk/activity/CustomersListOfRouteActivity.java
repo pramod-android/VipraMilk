@@ -37,8 +37,6 @@ public class CustomersListOfRouteActivity extends AppCompatActivity implements A
 
         RouteData routeData= (RouteData) intent.getSerializableExtra("routeData");
 
-
-
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final AdminCustomerListAdapter adapter = new AdminCustomerListAdapter(this);
         recyclerView.setAdapter(adapter);

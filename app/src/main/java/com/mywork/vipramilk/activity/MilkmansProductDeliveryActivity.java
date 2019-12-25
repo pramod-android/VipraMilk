@@ -17,12 +17,14 @@ import android.widget.Toast;
 
 import com.mywork.vipramilk.R;
 import com.mywork.vipramilk.adapter.AdminCustomerListAdapter;
+import com.mywork.vipramilk.adapter.MilkmanCustomerListAdapter;
 import com.mywork.vipramilk.entity.CustomerData;
 import com.mywork.vipramilk.viewmodel.CustomerDataViewModel;
+import com.mywork.vipramilk.viewmodel.MilkManDataViewModel;
 
 import java.util.List;
 
-public class MilkmansProductDeliveryActivity extends AppCompatActivity implements AdminCustomerListAdapter.ItemClickListener{
+public class MilkmansProductDeliveryActivity extends AppCompatActivity implements MilkmanCustomerListAdapter.ItemClickListener{
     private static final String TAG = "DeliveryActivity";
     private CustomerDataViewModel customerDataViewModel;
     @Override
@@ -30,7 +32,7 @@ public class MilkmansProductDeliveryActivity extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_milkmans_product_delivery);
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final AdminCustomerListAdapter adapter = new AdminCustomerListAdapter(this);
+        final MilkmanCustomerListAdapter adapter = new MilkmanCustomerListAdapter(this);
         recyclerView.setAdapter(adapter);
         adapter.setClickListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -66,7 +68,12 @@ public class MilkmansProductDeliveryActivity extends AppCompatActivity implement
     }
 
     @Override
-    public void onItemDeleteClick(View view, CustomerData customerData) {
+    public void onItemDeliveredClick(View view, CustomerData customerData) {
+      //  MilkManDataViewModel milkManDataViewModel=new
+
+
+
+
         //customerDataViewModel.moveToDeleted(false,customerData.getcustomerId());
     }
 
