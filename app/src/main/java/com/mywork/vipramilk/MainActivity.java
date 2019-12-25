@@ -8,6 +8,8 @@ import android.view.View;
 
 import com.mywork.vipramilk.activity.CustomerListActivity;
 import com.mywork.vipramilk.activity.MIlkmanListActivity;
+import com.mywork.vipramilk.activity.MilkmansProductDeliveryActivity;
+import com.mywork.vipramilk.activity.RouteCustListActivity;
 import com.mywork.vipramilk.activity.RouteListActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +32,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void OnMilkMansClick(View view) {
         Intent intent=new Intent(MainActivity.this, MIlkmanListActivity.class);
+        startActivity(intent);
+    }
+
+    public void OnAdminViewClick(View view) {
+        Intent intent=new Intent(MainActivity.this, RouteCustListActivity.class);
+        startActivity(intent);
+    }
+
+    public void OnProductDeliveryClick(View view) {
+        Intent intent=new Intent(MainActivity.this, MilkmansProductDeliveryActivity.class);
         startActivity(intent);
     }
 }

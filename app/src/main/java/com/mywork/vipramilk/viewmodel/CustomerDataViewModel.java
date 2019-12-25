@@ -24,6 +24,9 @@ public class CustomerDataViewModel extends AndroidViewModel {
 
     public LiveData<List<CustomerData>> getAllCustomers() { return customerDataList; }
 
+    public LiveData<List<CustomerData>> getRouteCustomers(int routeId) {
+        return customerDataRepository.getRouteCustomers(routeId); }
+
     public void insertCustomerData(CustomerData customerData) {
         customerDataRepository.insertCustomerData(customerData);
     }

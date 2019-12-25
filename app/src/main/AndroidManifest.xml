@@ -9,10 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AddMilkmanActivity"
-            android:label="Add MilkMan"></activity>
-        <activity android:name=".activity.MIlkmanListActivity"
-            android:label="MilkMan List"/>
+        <activity android:name=".activity.MilkmansProductDeliveryActivity"></activity>
+        <activity android:name=".activity.CustomersListOfRouteActivity" />
+        <activity android:name=".activity.RouteCustListActivity" />
+        <activity
+            android:name=".activity.AddMilkmanActivity"
+            android:label="Add MilkMan" />
+        <activity
+            android:name=".activity.MIlkmanListActivity"
+            android:label="MilkMan List" />
         <activity
             android:name=".activity.AddRouteActivity"
             android:label="Add Route" />

@@ -29,4 +29,7 @@ public interface CustomerDataDao {
     @Query("SELECT * from customer_table WHERE is_active =1 ORDER BY date ASC")
     LiveData<List<CustomerData>> getAllCustomers();
 
+    @Query("SELECT * from customer_table WHERE is_active =1 & route_id=:routeId ORDER BY date ASC")
+    LiveData<List<CustomerData>> getRouteCustomers(int routeId);
+
 }
