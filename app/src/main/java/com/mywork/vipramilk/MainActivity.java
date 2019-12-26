@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.mywork.vipramilk.activity.AddHolidaysActivity;
 import com.mywork.vipramilk.activity.CustomerListActivity;
 import com.mywork.vipramilk.activity.MIlkmanListActivity;
 import com.mywork.vipramilk.activity.MilkmansProductDeliveryActivity;
@@ -42,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void OnProductDeliveryClick(View view) {
         Intent intent=new Intent(MainActivity.this, MilkmansProductDeliveryActivity.class);
+        startActivity(intent);
+    }
+
+    public void OnHolidaySClick(View view) {
+        Intent intent=new Intent(MainActivity.this, AddHolidaysActivity.class);
         startActivity(intent);
     }
 }

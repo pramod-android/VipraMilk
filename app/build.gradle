@@ -49,4 +49,7 @@ dependencies {
 
 // Testing
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
+
+    implementation "com.applandeo:material-calendar-view:$rootProject.claenderViewVersion"
+
 }

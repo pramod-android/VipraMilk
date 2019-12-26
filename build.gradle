@@ -33,4 +33,6 @@ ext {
     roomVersion = '2.2.1'
     coreTestingVersion = '2.1.0'
     materialVersion = '1.0.0'
+
+    claenderViewVersion ='1.7.0'
 }

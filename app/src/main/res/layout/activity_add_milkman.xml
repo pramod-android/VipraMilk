@@ -27,7 +27,7 @@
                 android:id="@+id/edtTextMilkmanName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Customer Name"
+                android:hint="Milkman Name"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 

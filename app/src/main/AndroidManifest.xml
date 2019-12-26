@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MilkmansProductDeliveryActivity"></activity>
+        <activity android:name=".activity.AddHolidaysActivity"></activity>
+        <activity android:name=".activity.MilkmansProductDeliveryActivity" />
         <activity android:name=".activity.CustomersListOfRouteActivity" />
         <activity android:name=".activity.RouteCustListActivity" />
         <activity
