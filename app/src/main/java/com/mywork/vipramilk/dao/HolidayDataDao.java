@@ -14,16 +14,24 @@ import java.util.List;
 
 @Dao
 public interface HolidayDataDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertHolidayData(HolidayData holidayData);
 
     @Update(onConflict = OnConflictStrategy.IGNORE)
     void updateHolidayData(HolidayData holidayData);
+
+    @Query("SELECT * FROM holiday_data_table WHERE id = :id")
+    HolidayData getItemId(int id);
+
+
 
     @Query("DELETE FROM holiday_data_table")
     void deleteAll();
 
     @Query("SELECT * from holiday_data_table ")
     LiveData<List<HolidayData>> getAllHolidays();
+
+    @Query("SELECT * from holiday_data_table WHERE month=:month")
+    LiveData<List<HolidayData>> getMonthsHolidays(int month);
 
 }

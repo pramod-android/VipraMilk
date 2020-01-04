@@ -24,7 +24,13 @@ public class HolidayDataViewModel extends AndroidViewModel {
         holidayDataList = holidayDataRepository.getAllHolidays();
     }
 
-    public LiveData<List<HolidayData>> getAllHolidays() { return holidayDataList; }
+    public LiveData<List<HolidayData>> getAllHolidays() {
+        return holidayDataList;
+    }
+
+    public LiveData<List<HolidayData>> getMonthsHolidays(int month) {
+        return holidayDataRepository.getMonthsHolidays(month);
+    }
 
     public void insertHolidayData(HolidayData holidayData) {
         holidayDataRepository.insertHolidayData(holidayData);
@@ -33,7 +39,10 @@ public class HolidayDataViewModel extends AndroidViewModel {
     public void updateHolidayData(HolidayData holidayData) {
         holidayDataRepository.updateHolidayData(holidayData);
     }
+    public HolidayData getItemId(int id) {
+        return holidayDataRepository.getItemId(id);
 
+    }
 }
 
 

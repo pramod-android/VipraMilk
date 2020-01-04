@@ -51,5 +51,6 @@ dependencies {
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
 
     implementation "com.applandeo:material-calendar-view:$rootProject.claenderViewVersion"
+    implementation group: 'org.reactivestreams', name: 'reactive-streams', version: '1.0.0'
 
 }

@@ -15,6 +15,7 @@ import java.util.List;
 public class HolidayDataRepository {
     private HolidayDataDao holidayDataDao;
     private LiveData<List<HolidayData>> holidayDataList;
+    int id = 0;
 
 
     public HolidayDataRepository(Application application) {
@@ -29,6 +30,10 @@ public class HolidayDataRepository {
         return holidayDataList;
     }
 
+    public LiveData<List<HolidayData>> getMonthsHolidays(int months) {
+        return holidayDataDao.getMonthsHolidays(months);
+    }
+
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures
     // that you're not doing any long running operations on the main thread, blocking the UI.
     public void insertHolidayData(HolidayData holidayData) {
@@ -41,6 +46,10 @@ public class HolidayDataRepository {
         VipraMilkDatabase.databaseWriteExecutor.execute(() -> {
             holidayDataDao.updateHolidayData(holidayData);
         });
+    }
+
+    public HolidayData getItemId(int id) {
+        return holidayDataDao.getItemId(id);
     }
 
 }

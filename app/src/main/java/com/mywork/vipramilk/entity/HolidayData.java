@@ -11,12 +11,12 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "holiday_data_table")
 public class HolidayData {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey()
     @NonNull
     @SerializedName("id")
     @Expose
     @ColumnInfo(name = "id")
-    private int Id = 0;
+    private int Id;
 
     @SerializedName("customer_id")
     @Expose
@@ -154,6 +154,14 @@ public class HolidayData {
     @Expose
     @ColumnInfo(name = "day31")
     private int day31;
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
 
     public int getCustomerId() {
         return customerId;
@@ -425,13 +433,5 @@ public class HolidayData {
 
     public void setDay31(int day31) {
         this.day31 = day31;
-    }
-
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int id) {
-        Id = id;
     }
 }
