@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,11 @@ public class AddHolidaysActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_holidays);
+
+        Intent intent = getIntent();
+
+        int custId = intent.getIntExtra("custid", 0);
+
 
         calendarView = findViewById(R.id.calendarView);
         buttonSubmit = findViewById(R.id.buttonSubmit);
@@ -311,7 +317,7 @@ public class AddHolidaysActivity extends AppCompatActivity {
             public void onDayClick(EventDay eventDay) {
                 Calendar clickedDayCalendar = eventDay.getCalendar();
 
-                if(selectedDates.size()<=0){
+                if (selectedDates.size() <= 0) {
                     selectedDates = calendarView.getSelectedDates();
                 }
                 if (selectedDates.contains(clickedDayCalendar)) {
@@ -464,7 +470,7 @@ public class AddHolidaysActivity extends AppCompatActivity {
                     }
                 }
 
-                new myAsyncTask(holidayDataViewModel, holidayData).execute(Integer.valueOf(""+selectedDates.get(0).get(Calendar.DAY_OF_MONTH) + selectedDates.get(0).get(Calendar.MONTH) + selectedDates.get(0).get(Calendar.YEAR)));
+                new myAsyncTask(holidayDataViewModel, holidayData).execute(Integer.valueOf("" + selectedDates.get(0).get(Calendar.DAY_OF_MONTH) + selectedDates.get(0).get(Calendar.MONTH) + selectedDates.get(0).get(Calendar.YEAR)));
 
 
                 //  HolidayData holidayData1=holidayDataViewModel.getItemId(selectedDates.get(0).get(Calendar.DAY_OF_MONTH)+selectedDates.get(0).get(Calendar.MONTH)+selectedDates.get(0).get(Calendar.YEAR));

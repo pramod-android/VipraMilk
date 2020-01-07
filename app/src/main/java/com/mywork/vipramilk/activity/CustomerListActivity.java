@@ -61,6 +61,9 @@ public class CustomerListActivity extends AppCompatActivity implements CustomerL
     @Override
     public void onItemClick(View view, CustomerData customerData) {
         Toast.makeText(this, "Item click", Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent(this,CustomerDetailsActivity.class);
+        intent.putExtra("data",customerData);
+        startActivity(intent);
     }
 
     @Override
