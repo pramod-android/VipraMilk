@@ -35,7 +35,14 @@ public class CustomersListOfRouteActivity extends AppCompatActivity implements A
 
         Intent intent=getIntent();
 
-        RouteData routeData= (RouteData) intent.getSerializableExtra("routeData");
+        int routeID;
+        if(intent.hasExtra("routeData")){
+            RouteData routeData= (RouteData) intent.getSerializableExtra("routeData");
+            routeID=routeData.getRouteId();
+        }else
+        {
+            routeID=intent.getIntExtra("routeId",0);
+        }
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final AdminCustomerListAdapter adapter = new AdminCustomerListAdapter(this);
@@ -46,7 +53,7 @@ public class CustomersListOfRouteActivity extends AppCompatActivity implements A
 
         customerDataViewModel = new ViewModelProvider(this).get(CustomerDataViewModel.class);
 
-        customerDataViewModel.getRouteCustomers(routeData.getRouteId()).observe(this, new Observer<List<CustomerData>>() {
+        customerDataViewModel.getRouteCustomers(routeID).observe(this, new Observer<List<CustomerData>>() {
             @Override
             public void onChanged(@Nullable final List<CustomerData> customerDataList) {
                 // Update the cached copy of the words in the adapter.

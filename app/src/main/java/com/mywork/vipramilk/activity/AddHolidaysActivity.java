@@ -59,18 +59,24 @@ public class AddHolidaysActivity extends AppCompatActivity {
 
         Date currentTime = Calendar.getInstance().getTime();
 
-        Calendar c = Calendar.getInstance();
-        monthOfYear = c.get(Calendar.MONTH);
-        year=c.get(Calendar.YEAR);
-        
-       hId = "" + custId + monthOfYear + year;
+        Calendar calendar = Calendar.getInstance();
+        monthOfYear = calendar.get(Calendar.MONTH);
+        year=calendar.get(Calendar.YEAR);
+        while (calendar.get(Calendar.DATE) > 1) {
+            calendar.add(Calendar.DATE, -1); // Substract 1 day until first day of month.
+        }
+        //long firstDayOfMonthTimestamp = calendar.getTimeInMillis();
+        calendar.add(Calendar.DATE, -1);
+        calendarView.setMinimumDate(calendar);
 
-        Toast.makeText(this, "" + monthOfYear, Toast.LENGTH_SHORT).show();
 
+
+
+        hId = "" + custId + monthOfYear + year;
 
         holidayDataViewModel = new ViewModelProvider(this).get(HolidayDataViewModel.class);
 
-        holidayDataViewModel.getMonthsHolidays(monthOfYear).observe(this, new Observer<List<HolidayData>>() {
+        holidayDataViewModel.getMonthsHolidays(Integer.valueOf(hId)).observe(this, new Observer<List<HolidayData>>() {
             @Override
             public void onChanged(List<HolidayData> holidayData) {
                 setData(holidayData);
@@ -84,7 +90,13 @@ public class AddHolidaysActivity extends AppCompatActivity {
                 Calendar clickedDayCalendar = eventDay.getCalendar();
 
                 if (selectedDates.size() <= 0) {
-                    selectedDates = calendarView.getSelectedDates();
+                    List<Calendar> tlist=calendarView.getSelectedDates();
+                    for(Calendar cl:tlist){
+                        if(cl.get(Calendar.MONTH)==monthOfYear){
+                            selectedDates.add(cl);
+                        }
+                    }
+                   // selectedDates = calendarView.getSelectedDates();
                 }
                 if (selectedDates.contains(clickedDayCalendar)) {
                     selectedDates.remove(clickedDayCalendar);
@@ -96,7 +108,7 @@ public class AddHolidaysActivity extends AppCompatActivity {
                     buttonSubmit.setEnabled(true);
                 }
                 // selectedDates = calendarView.getSelectedDates();
-                Toast.makeText(AddHolidaysActivity.this, "date :" + clickedDayCalendar.get(Calendar.DAY_OF_MONTH) + "size :" + selectedDates.size(), Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(AddHolidaysActivity.this, "date :" + clickedDayCalendar.get(Calendar.DAY_OF_MONTH) + "size :" + selectedDates.size(), Toast.LENGTH_SHORT).show();
             }
         });
         calendarView.setOnPreviousPageChangeListener(new OnCalendarPageChangeListener() {
@@ -110,11 +122,12 @@ public class AddHolidaysActivity extends AppCompatActivity {
                 } else {
                     monthOfYear = monthOfYear - 1;
                 }
-                Toast.makeText(AddHolidaysActivity.this, "" + monthOfYear, Toast.LENGTH_SHORT).show();
-
-                holidayDataViewModel.getMonthsHolidays(monthOfYear).observe(AddHolidaysActivity.this, new Observer<List<HolidayData>>() {
+               // Toast.makeText(AddHolidaysActivity.this, "" + monthOfYear, Toast.LENGTH_SHORT).show();
+                hId = "" + custId + monthOfYear + year;
+                holidayDataViewModel.getMonthsHolidays(Integer.valueOf(hId)).observe(AddHolidaysActivity.this, new Observer<List<HolidayData>>() {
                     @Override
                     public void onChanged(List<HolidayData> holidayData) {
+
                         setData(holidayData);
                     }
                 });
@@ -132,10 +145,12 @@ public class AddHolidaysActivity extends AppCompatActivity {
                     monthOfYear = monthOfYear + 1;
                 }
                 Toast.makeText(AddHolidaysActivity.this, "" + monthOfYear, Toast.LENGTH_SHORT).show();
+                hId = "" + custId + monthOfYear + year;
 
-                holidayDataViewModel.getMonthsHolidays(monthOfYear).observe(AddHolidaysActivity.this, new Observer<List<HolidayData>>() {
+                holidayDataViewModel.getMonthsHolidays(Integer.valueOf(hId)).observe(AddHolidaysActivity.this, new Observer<List<HolidayData>>() {
                     @Override
                     public void onChanged(List<HolidayData> holidayData) {
+
                         setData(holidayData);
                     }
                 });

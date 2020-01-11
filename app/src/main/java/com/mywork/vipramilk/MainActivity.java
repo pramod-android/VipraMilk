@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.mywork.vipramilk.activity.AddHolidaysActivity;
 import com.mywork.vipramilk.activity.CustomerListActivity;
@@ -47,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void OnHolidaySClick(View view) {
-        Intent intent=new Intent(MainActivity.this, AddHolidaysActivity.class);
-        startActivity(intent);
+        Toast.makeText(this, "Click on customer in Customer tab", Toast.LENGTH_SHORT).show();
+
+//        Intent intent=new Intent(MainActivity.this, AddHolidaysActivity.class);
+//        startActivity(intent);
     }
 }

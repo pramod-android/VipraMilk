@@ -62,8 +62,10 @@ public class MIlkmanListActivity extends AppCompatActivity implements MilkmanLis
 
     @Override
     public void onItemClick(View view, MilkmanData milkmanData) {
-        Toast.makeText(this, "Item click", Toast.LENGTH_SHORT).show();
-
+        Intent intent = new Intent(MIlkmanListActivity.this, CustomersListOfRouteActivity.class);
+        intent.putExtra("routeId",milkmanData.getRouteId());
+        startActivity(intent);
+       // Toast.makeText(this, "Item click", Toast.LENGTH_SHORT).show();
     }
 
     @Override

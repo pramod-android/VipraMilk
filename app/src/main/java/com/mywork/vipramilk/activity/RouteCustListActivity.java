@@ -56,7 +56,7 @@ public class RouteCustListActivity extends AppCompatActivity implements AdminRou
 
         @Override
         public void onItemEditClick(View view, RouteData routeData) {
-            android.content.Intent intent = new Intent(RouteCustListActivity.this, CustomersListOfRouteActivity.class);
+            android.content.Intent intent = new Intent(RouteCustListActivity.this, AddRouteActivity.class);
             intent.putExtra("routeData",routeData);
             startActivity(intent);
         }

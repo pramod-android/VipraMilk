@@ -30,8 +30,8 @@ public class HolidayDataRepository {
         return holidayDataList;
     }
 
-    public LiveData<List<HolidayData>> getMonthsHolidays(int months) {
-        return holidayDataDao.getMonthsHolidays(months);
+    public LiveData<List<HolidayData>> getMonthsHolidays(int id) {
+        return holidayDataDao.getMonthsHolidays(id);
     }
 
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures
