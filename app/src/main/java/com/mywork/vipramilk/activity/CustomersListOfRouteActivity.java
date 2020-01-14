@@ -20,16 +20,30 @@ import com.mywork.vipramilk.entity.CustomerData;
 import com.mywork.vipramilk.entity.RouteData;
 import com.mywork.vipramilk.viewmodel.CustomerDataViewModel;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class CustomersListOfRouteActivity extends AppCompatActivity implements AdminCustomerListAdapter.ItemClickListener {
+
     private static final String TAG = "CustomersOfRoute";
     private CustomerDataViewModel customerDataViewModel;
+    String oddEven;
+    List<CustomerData> custDataList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customers_list_of_route);
+
+        Calendar calendar = Calendar.getInstance();
+        int dayOfMonth=calendar.get(Calendar.DAY_OF_MONTH);
+        int mothOfYear=calendar.get(Calendar.MONTH);
+        if ( dayOfMonth % 2 == 0 )
+            oddEven="EvenDay";
+        else
+            oddEven="OddDay";
+
 
         Intent intent = getIntent();
 
@@ -54,7 +68,15 @@ public class CustomersListOfRouteActivity extends AppCompatActivity implements A
             @Override
             public void onChanged(@Nullable final List<CustomerData> customerDataList) {
                 // Update the cached copy of the words in the adapter.
-                adapter.setCustomers(customerDataList);
+
+                for(CustomerData cd: customerDataList){
+                    if(cd.getDeliveryOn().equals("Daily")){
+                        custDataList.add(cd);
+                    }else if(cd.getDeliveryOn().equals(oddEven)){
+                        custDataList.add(cd);
+                    }
+                }
+                adapter.setCustomers(custDataList);
             }
         });
     }
