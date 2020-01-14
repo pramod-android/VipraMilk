@@ -96,7 +96,7 @@ public class CustomerData implements Serializable {
     @SerializedName("is_active")
     @Expose
     @ColumnInfo(name = "is_active")
-    private boolean isActive;
+    private boolean isActive=true;
 
 
     public int getcustomerId() {

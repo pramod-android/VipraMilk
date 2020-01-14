@@ -6,9 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
-
 import com.mywork.vipramilk.entity.CustomerData;
-
 import java.util.List;
 
 @Dao
@@ -29,7 +27,6 @@ public interface CustomerDataDao {
     @Query("SELECT * from customer_table WHERE is_active =1 ORDER BY date ASC")
     LiveData<List<CustomerData>> getAllCustomers();
 
-    @Query("SELECT * from customer_table WHERE is_active =1 & route_id=:routeId ORDER BY route_sequence ASC")
+    @Query("SELECT * from customer_table WHERE is_active=1 AND route_id=:routeId ORDER BY route_sequence ASC")
     LiveData<List<CustomerData>> getRouteCustomers(int routeId);
-
 }

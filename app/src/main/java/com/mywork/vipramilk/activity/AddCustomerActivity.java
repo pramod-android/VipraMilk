@@ -18,6 +18,7 @@ import com.mywork.vipramilk.R;
 import com.mywork.vipramilk.adapter.SpinnerAdapter;
 import com.mywork.vipramilk.entity.CustomerData;
 import com.mywork.vipramilk.entity.RouteData;
+import com.mywork.vipramilk.viewmodel.AddCustomerViewModel;
 import com.mywork.vipramilk.viewmodel.CustomerDataViewModel;
 import com.mywork.vipramilk.viewmodel.RouteDataViewModel;
 
@@ -34,8 +35,8 @@ public class AddCustomerActivity extends AppCompatActivity {
     RadioGroup radioGroupDeliveryOn;
     RadioButton rbDaily, rbEven, rbOdd;
 
-    private CustomerDataViewModel customerDataViewModel;
-    private RouteDataViewModel routeDataViewModel;
+    private AddCustomerViewModel addCustomerViewModel;
+  //  private RouteDataViewModel routeDataViewModel;
 
     int oneltr = 0, halfLtr = 0;
     boolean isUpdateReq = false;
@@ -60,10 +61,10 @@ public class AddCustomerActivity extends AppCompatActivity {
             isUpdateReq = true;
         }
 
-        customerDataViewModel = new ViewModelProvider(this).get(CustomerDataViewModel.class);
-        routeDataViewModel = new ViewModelProvider(this).get(RouteDataViewModel.class);
+        addCustomerViewModel = new ViewModelProvider(this).get(AddCustomerViewModel.class);
+     //   routeDataViewModel = new ViewModelProvider(this).get(RouteDataViewModel.class);
 
-        routeDataViewModel.getAllRoutes().observe(this, new Observer<List<RouteData>>() {
+        addCustomerViewModel.getAllRoutes().observe(this, new Observer<List<RouteData>>() {
             @Override
             public void onChanged(List<RouteData> routeData) {
                 if(!isUpdateReq) {
@@ -95,9 +96,9 @@ public class AddCustomerActivity extends AppCompatActivity {
                 if (isUpdateReq) {
                     CustomerData custData = GetUserInputsAndValidate();
                     custData.setCustomerId(customerData.getCustomerId());
-                    customerDataViewModel.updateCustomerData(custData);
+                    addCustomerViewModel.updateCustomerData(custData);
                 } else {
-                    customerDataViewModel.insertCustomerData(GetUserInputsAndValidate());
+                    addCustomerViewModel.insertCustomerData(GetUserInputsAndValidate());
                 }
                 finish();
             }

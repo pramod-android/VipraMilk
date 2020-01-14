@@ -41,7 +41,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                 +customerData.getContactTwo()+"\n"
                 +customerData.getContactEmail()+"\n"
                 +customerData.getContactWhatsapp()+"\n"
-                +customerData.getDate()+"\n");
+                +customerData.getRouteId()+"\n");
 
     }
 }

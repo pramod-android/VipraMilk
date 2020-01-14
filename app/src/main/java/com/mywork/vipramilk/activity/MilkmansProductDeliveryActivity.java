@@ -68,9 +68,11 @@ public class MilkmansProductDeliveryActivity extends AppCompatActivity implement
 
     @Override
     public void onItemEditClick(View view, CustomerData customerData) {
+
 //        Intent intent = new Intent(CustomersListOfRouteActivity.this, AddCustomerActivity.class);
 //        intent.putExtra("customerdata",customerData);
 //        startActivity(intent);
+
     }
 
     @Override

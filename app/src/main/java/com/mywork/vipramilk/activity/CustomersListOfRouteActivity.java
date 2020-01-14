@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +13,6 @@ import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mywork.vipramilk.R;
 import com.mywork.vipramilk.adapter.AdminCustomerListAdapter;
 import com.mywork.vipramilk.adapter.CustomerListAdapter;
@@ -25,23 +22,23 @@ import com.mywork.vipramilk.viewmodel.CustomerDataViewModel;
 
 import java.util.List;
 
-public class CustomersListOfRouteActivity extends AppCompatActivity implements AdminCustomerListAdapter.ItemClickListener{
+public class CustomersListOfRouteActivity extends AppCompatActivity implements AdminCustomerListAdapter.ItemClickListener {
     private static final String TAG = "CustomersOfRoute";
     private CustomerDataViewModel customerDataViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customers_list_of_route);
 
-        Intent intent=getIntent();
+        Intent intent = getIntent();
 
         int routeID;
-        if(intent.hasExtra("routeData")){
-            RouteData routeData= (RouteData) intent.getSerializableExtra("routeData");
-            routeID=routeData.getRouteId();
-        }else
-        {
-            routeID=intent.getIntExtra("routeId",0);
+        if (intent.hasExtra("routeData")) {
+            RouteData routeData = (RouteData) intent.getSerializableExtra("routeData");
+            routeID = routeData.getRouteId();
+        } else {
+            routeID = intent.getIntExtra("routeId", 0);
         }
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
@@ -90,12 +87,12 @@ public class CustomersListOfRouteActivity extends AppCompatActivity implements A
             number = number.replace(" ", "").replace("+", "");
 
             Intent sendIntent = new Intent("android.intent.action.MAIN");
-            sendIntent.setComponent(new ComponentName("com.whatsapp","com.whatsapp.Conversation"));
-            sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(number)+"@s.whatsapp.net");
+            sendIntent.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
+            sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(number) + "@s.whatsapp.net");
             startActivity(sendIntent);
 
-        } catch(Exception e) {
-            Log.e(TAG, "ERROR_OPEN_MESSANGER"+e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "ERROR_OPEN_MESSANGER" + e.toString());
         }
     }
 }
