@@ -5,6 +5,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.google.gson.Gson;
 import com.mywork.vipramilk.R;
+import com.mywork.vipramilk.entity.CustomerData;
 import com.mywork.vipramilk.entity.Holiday;
 import com.mywork.vipramilk.entity.HolidayData;
 import com.mywork.vipramilk.viewmodel.HolidayDataViewModel;
@@ -26,6 +29,7 @@ import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,10 +42,11 @@ public class AddHolidaysActivity extends AppCompatActivity {
     List<Calendar> selectedDates = new ArrayList<>();
     Button buttonSubmit;
     HolidayDataViewModel holidayDataViewModel;
-    int custId;
+    CustomerData customerData;
     int monthOfYear;
     int year;
     String hId;
+    int days;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +54,7 @@ public class AddHolidaysActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        custId = intent.getIntExtra("custid", 0);
+        customerData = (CustomerData)intent.getSerializableExtra("cust");
 
 
         calendarView = findViewById(R.id.calendarView);
@@ -62,6 +67,8 @@ public class AddHolidaysActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         monthOfYear = calendar.get(Calendar.MONTH);
         year=calendar.get(Calendar.YEAR);
+         days = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
         while (calendar.get(Calendar.DATE) > 1) {
             calendar.add(Calendar.DATE, -1); // Substract 1 day until first day of month.
         }
@@ -69,10 +76,7 @@ public class AddHolidaysActivity extends AppCompatActivity {
         calendar.add(Calendar.DATE, -1);
         calendarView.setMinimumDate(calendar);
 
-
-
-
-        hId = "" + custId + monthOfYear + year;
+        hId = "" + customerData.getcustomerId() + monthOfYear + year;
 
         holidayDataViewModel = new ViewModelProvider(this).get(HolidayDataViewModel.class);
 
@@ -123,7 +127,7 @@ public class AddHolidaysActivity extends AppCompatActivity {
                     monthOfYear = monthOfYear - 1;
                 }
                // Toast.makeText(AddHolidaysActivity.this, "" + monthOfYear, Toast.LENGTH_SHORT).show();
-                hId = "" + custId + monthOfYear + year;
+                hId = "" + customerData.getcustomerId() + monthOfYear + year;
                 holidayDataViewModel.getMonthsHolidays(Integer.valueOf(hId)).observe(AddHolidaysActivity.this, new Observer<List<HolidayData>>() {
                     @Override
                     public void onChanged(List<HolidayData> holidayData) {
@@ -145,7 +149,7 @@ public class AddHolidaysActivity extends AppCompatActivity {
                     monthOfYear = monthOfYear + 1;
                 }
                 Toast.makeText(AddHolidaysActivity.this, "" + monthOfYear, Toast.LENGTH_SHORT).show();
-                hId = "" + custId + monthOfYear + year;
+                hId = "" + customerData.getcustomerId() + monthOfYear + year;
 
                 holidayDataViewModel.getMonthsHolidays(Integer.valueOf(hId)).observe(AddHolidaysActivity.this, new Observer<List<HolidayData>>() {
                     @Override
@@ -215,8 +219,10 @@ public class AddHolidaysActivity extends AppCompatActivity {
     }
 
     private void setData(List<HolidayData> holidayData) {
+        List<Calendar> calendarList = new ArrayList<>();
+        List<EventDay> events = new ArrayList<>();
         if (holidayData != null && holidayData.size() > 0) {
-            List<Calendar> calendarList = new ArrayList<>();
+
             if (holidayData.get(0).getDay1() == 1) {
 
                 Calendar calendar = Calendar.getInstance();
@@ -466,6 +472,56 @@ public class AddHolidaysActivity extends AppCompatActivity {
                 calendarList.add(calendar);
             }
             calendarView.setSelectedDates(calendarList);
+        }else{
+            switch (customerData.getDeliveryOn()) {
+
+                case ("Daily"): {
+                        for(int i=1;i<=days;i++){
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(Calendar.MONTH, monthOfYear);
+                            calendar.set(Calendar.YEAR, year);
+                            calendar.set(Calendar.DAY_OF_MONTH, i);
+                            calendarList.add(calendar);
+                            events.add(new EventDay(calendar, R.drawable.ic_dot));
+
+                        }
+                    break;
+                }
+                case ("EvenDay"): {
+                    for(int i=1;i<=days;i++){
+                        if (i%2==0) {
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(Calendar.MONTH, monthOfYear);
+                            calendar.set(Calendar.YEAR, year);
+                            calendar.set(Calendar.DAY_OF_MONTH, i);
+                            calendarList.add(calendar);
+                            events.add(new EventDay(calendar, R.drawable.ic_dot));
+
+                        }
+                    }
+                    break;
+                }
+                case ("OddDay"): {
+                    for(int i=1;i<=days;i++){
+                        if (i%2!=0) {
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(Calendar.MONTH, monthOfYear);
+                            calendar.set(Calendar.YEAR, year);
+                            calendar.set(Calendar.DAY_OF_MONTH, i);
+                            calendarList.add(calendar);
+                            events.add(new EventDay(calendar, R.drawable.ic_dot));
+                            events.add(new EventDay(calendar, R.drawable.ic_chat));
+
+                        }
+                    }
+
+                    break;
+                }
+            }
+            calendarView.setSelectedDates(calendarList);
+            calendarView.setEvents(events);
+
+
         }
     }
 
@@ -475,10 +531,10 @@ public class AddHolidaysActivity extends AppCompatActivity {
         holidayData.setMonth(monthOfYear);
        // int month=selectedDates.get(0).get(Calendar.MONTH);
        // int year= selectedDates.get(0).get(Calendar.YEAR);
-        hId = "" + custId + monthOfYear + year;
+        hId = "" + customerData.getcustomerId() + monthOfYear + year;
         holidayData.setId(Integer.valueOf(hId));
         holidayData.setYear(selectedDates.get(0).get(Calendar.YEAR));
-        holidayData.setCustomerId(custId);
+        holidayData.setCustomerId(customerData.getCustomerId());
         for (Calendar calendar : selectedDates) {
             
             switch (calendar.get(Calendar.DAY_OF_MONTH)) {

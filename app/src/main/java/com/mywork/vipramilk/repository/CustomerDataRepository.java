@@ -5,20 +5,24 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.mywork.vipramilk.dao.CustomerDataDao;
+import com.mywork.vipramilk.dao.HolidayDataDao;
 import com.mywork.vipramilk.database.VipraMilkDatabase;
 import com.mywork.vipramilk.entity.Customer;
 import com.mywork.vipramilk.entity.CustomerData;
+import com.mywork.vipramilk.entity.Holiday;
+import com.mywork.vipramilk.entity.HolidayData;
 
 import java.util.List;
 
 public class CustomerDataRepository {
     private CustomerDataDao customerDataDao;
     private LiveData<List<CustomerData>> cutomerDataList;
-
+    private HolidayDataDao holidayDataDao;
 
     public CustomerDataRepository(Application application) {
         VipraMilkDatabase db = VipraMilkDatabase.getDatabase(application);
         customerDataDao = db.customerDataDao();
+        holidayDataDao=db.holidayDataDao();
         cutomerDataList = customerDataDao.getAllCustomers();
     }
 
@@ -52,4 +56,7 @@ public class CustomerDataRepository {
         });
     }
 
+    public HolidayData checkIsHolidays(String day, int custId, int month, int year){
+        return holidayDataDao.checkIsHolidays(custId,month,year);
+    }
 }

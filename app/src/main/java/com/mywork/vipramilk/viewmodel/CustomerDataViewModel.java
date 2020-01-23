@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.mywork.vipramilk.entity.CustomerData;
+import com.mywork.vipramilk.entity.HolidayData;
 import com.mywork.vipramilk.repository.CustomerDataRepository;
 
 import java.util.List;
@@ -39,4 +40,8 @@ public class CustomerDataViewModel extends AndroidViewModel {
         customerDataRepository.moveToDeleted(isActive,id);
     }
 
+
+    public HolidayData checkIsHolidays(String day,int custId,int month,int year){
+        return customerDataRepository.checkIsHolidays(day,custId,month,year);
+    }
 }

@@ -30,7 +30,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1=new Intent(CustomerDetailsActivity.this,AddHolidaysActivity.class);
-                intent1.putExtra("custid",customerData.getCustomerId());
+                intent1.putExtra("cust",customerData);
                 startActivity(intent1);
             }
         });

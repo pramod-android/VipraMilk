@@ -34,4 +34,7 @@ public interface HolidayDataDao {
     @Query("SELECT * from holiday_data_table WHERE id=:id")
     LiveData<List<HolidayData>> getMonthsHolidays(int id);
 
+    @Query("SELECT * from holiday_data_table WHERE customer_id=:custId AND month=:month AND year=:year ")
+    HolidayData checkIsHolidays(int custId,int month,int year);
+
 }
