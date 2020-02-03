@@ -29,7 +29,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         buttonAddHolidays.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1=new Intent(CustomerDetailsActivity.this,AddHolidaysActivity.class);
+                Intent intent1=new Intent(CustomerDetailsActivity.this,ScheduleActivity.class);
                 intent1.putExtra("cust",customerData);
                 startActivity(intent1);
             }
