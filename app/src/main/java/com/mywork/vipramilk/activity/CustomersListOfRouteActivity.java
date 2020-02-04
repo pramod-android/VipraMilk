@@ -84,12 +84,12 @@ public class CustomersListOfRouteActivity extends AppCompatActivity implements A
                 for(CustomerData cd: customerDataList){
                     if(cd.getDeliveryOn().equals("Daily")){
 
-                        new myAsyncTask(customerDataViewModel,cd,"day"+dayOfMonth).execute(cd.getCustomerId(),mothOfYear,year);
+                        new myAsyncTask(customerDataViewModel,cd).execute(cd.getCustomerId(),mothOfYear,year);
 //                        if(customerDataViewModel.checIsHolidays("day"+dayOfMonth,custID,mothOfYear,year)==0) {
 //                            custDataList.add(cd);
 //                        }
                     }else if(cd.getDeliveryOn().equals(oddEven)){
-                        new myAsyncTask(customerDataViewModel,cd,"day"+dayOfMonth).execute(cd.getcustomerId(),mothOfYear,year);
+                        new myAsyncTask(customerDataViewModel,cd).execute(cd.getcustomerId(),mothOfYear,year);
                        // (String day,int custId,int month,int year)
 //                        if(customerDataViewModel.checIsHolidays("day"+dayOfMonth,custID,mothOfYear,year)==0) {
 //                            custDataList.add(cd);
@@ -105,38 +105,38 @@ public class CustomersListOfRouteActivity extends AppCompatActivity implements A
 
         CustomerDataViewModel viewModel;
         CustomerData customerData;
-        String day;
+        //String day;
 
-        public myAsyncTask(CustomerDataViewModel model, CustomerData hData,String daystr) {
+        public myAsyncTask(CustomerDataViewModel model, CustomerData hData) {
             viewModel = model;
             customerData = hData;
-            day=daystr;
+          //  day=daystr;
 
         }
 
         @Override
         protected HolidayData doInBackground(Integer... params) {
-            return viewModel.checkIsHolidays(day,params[0],params[1],params[2]);
+            return viewModel.checkIsHolidays(params[0],params[1],params[2]);
 
         }
 
         @Override
         protected void onPostExecute(HolidayData holidayData) {
 
-            Gson gson=new Gson();
-            String jsonString = gson.toJson(holidayData);
-            try {
-                JSONObject jsonObject = new JSONObject(jsonString);
-                Iterator<String> keys = jsonObject.keys();
-                while (keys.hasNext()) {
-                    if(keys.next().equals(day)){
-
-                    }
-                }
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+//            Gson gson=new Gson();
+//            String jsonString = gson.toJson(holidayData);
+//            try {
+//                JSONObject jsonObject = new JSONObject(jsonString);
+//                Iterator<String> keys = jsonObject.keys();
+//                while (keys.hasNext()) {
+//                    if(keys.next().equals(day)){
+//
+//                    }
+//                }
+//            } catch (JSONException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
 
 
 

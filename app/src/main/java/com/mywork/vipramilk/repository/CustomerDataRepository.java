@@ -56,7 +56,7 @@ public class CustomerDataRepository {
         });
     }
 
-    public HolidayData checkIsHolidays(String day, int custId, int month, int year){
+    public HolidayData checkIsHolidays(int custId, int month, int year){
         return holidayDataDao.checkIsHolidays(custId,month,year);
     }
 }

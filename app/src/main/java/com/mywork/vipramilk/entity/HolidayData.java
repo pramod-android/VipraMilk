@@ -11,25 +11,28 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "holiday_data_table")
 public class HolidayData {
 
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     @SerializedName("id")
     @Expose
     @ColumnInfo(name = "id")
-    private int Id;
+    private int Id=0;
 
     @SerializedName("customer_id")
     @Expose
     @ColumnInfo(name = "customer_id")
     private int customerId;
+
     @SerializedName("month")
     @Expose
     @ColumnInfo(name = "month")
     private int month;
+
     @SerializedName("year")
     @Expose
     @ColumnInfo(name = "year")
     private int year;
+
     @SerializedName("day1")
     @Expose
     @ColumnInfo(name = "day1")

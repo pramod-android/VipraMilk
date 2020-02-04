@@ -41,7 +41,7 @@ public class CustomerDataViewModel extends AndroidViewModel {
     }
 
 
-    public HolidayData checkIsHolidays(String day,int custId,int month,int year){
-        return customerDataRepository.checkIsHolidays(day,custId,month,year);
+    public HolidayData checkIsHolidays(int custId,int month,int year){
+        return customerDataRepository.checkIsHolidays(custId,month,year);
     }
 }
