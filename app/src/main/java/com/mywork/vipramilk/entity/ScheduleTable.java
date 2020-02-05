@@ -22,14 +22,17 @@ public class ScheduleTable {
     @ColumnInfo(name = "id")
     private int id=0;
 
-    @PrimaryKey(autoGenerate = true)
+    @SerializedName("customer_id")
+    @Expose
+    @ColumnInfo(name = "customer_id")
+    private int customerId;
+
     @NonNull
     @SerializedName("month")
     @Expose
     @ColumnInfo(name = "month")
     private int month=0;
 
-    @PrimaryKey(autoGenerate = true)
     @NonNull
     @SerializedName("year")
     @Expose
@@ -43,5 +46,44 @@ public class ScheduleTable {
     @ColumnInfo(name = "scheduleDataList")
     List<ScheduleData> scheduleDataList;
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    @NonNull
+    public List<ScheduleData> getScheduleDataList() {
+        return scheduleDataList;
+    }
+
+    public void setScheduleDataList(@NonNull List<ScheduleData> scheduleDataList) {
+        this.scheduleDataList = scheduleDataList;
+    }
 }

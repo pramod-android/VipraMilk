@@ -25,8 +25,10 @@ import com.mywork.vipramilk.entity.CustomerData;
 import com.mywork.vipramilk.entity.HolidayData;
 import com.mywork.vipramilk.entity.MilkmanData;
 import com.mywork.vipramilk.entity.ScheduleData;
+import com.mywork.vipramilk.entity.ScheduleTable;
 import com.mywork.vipramilk.viewmodel.CustomerDataViewModel;
 import com.mywork.vipramilk.viewmodel.HolidayDataViewModel;
+import com.mywork.vipramilk.viewmodel.ScheduleActivityViewModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,7 +42,10 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleListA
     CustomerData customerData;
     ScheduleListAdapter adapter;
     HolidayDataViewModel holidayDataViewModel;
+    ScheduleActivityViewModel scheduleActivityViewModel;
+    List<ScheduleData> scheduleDataArrayList;
 
+    boolean updateFlag=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,17 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleListA
         adapter.setClickListener(this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
         holidayDataViewModel = new ViewModelProvider(this).get(HolidayDataViewModel.class);
+        scheduleActivityViewModel = new ViewModelProvider(this).get(ScheduleActivityViewModel.class);
+        Calendar calendar = Calendar.getInstance();
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+      //  ScheduleTable scheduleTableData = scheduleActivityViewModel.getScheduleData(customerData.getcustomerId(), month, year);
+
+     //   SetData(scheduleTableData);
+
+        new myAsyncTask(scheduleActivityViewModel).execute(customerData.getcustomerId(),month,year);
+
+
 
 //        holidayDataViewModel.getMonthsHolidays(Integer.valueOf(hId)).observe(this, new Observer<List<HolidayData>>() {
 //            @Override
@@ -64,41 +80,16 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleListA
 //                SetData();
 //            }
 //        });
-
-
     }
 
-    private class myAsyncTask extends AsyncTask<Integer, Void, HolidayData> {
 
+    private void SetData(ScheduleTable scheduleTableData) {
 
-        CustomerDataViewModel viewModel;
-        CustomerData customerData;
-        String day;
-
-        public myAsyncTask(CustomerDataViewModel model, CustomerData hData, String daystr) {
-            viewModel = model;
-            customerData = hData;
-            day = daystr;
-        }
-
-        @Override
-        protected HolidayData doInBackground(Integer... params) {
-            return viewModel.checkIsHolidays(params[0], params[1], params[2]);
-        }
-
-        @Override
-        protected void onPostExecute(HolidayData holidayData) {
-
-            SetData(holidayData);
-        }
-    }
-
-    private void SetData(HolidayData holidayData) {
-
-        if(holidayData!=null) {
-            List<ScheduleData> scheduleDataArrayList = new ArrayList<>();
+        if (scheduleTableData == null) {
+           scheduleDataArrayList = new ArrayList<>();
 
             Calendar c = Calendar.getInstance();
+
             int monthMaxDays = c.getActualMaximum(Calendar.DAY_OF_MONTH);
             for (int i = 1; i < monthMaxDays; i++) {
                 ScheduleData scheduleData = new ScheduleData();
@@ -125,24 +116,12 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleListA
                 }
             }
             adapter.setScheduleData(scheduleDataArrayList);
-        }else {
-            Gson gson = new Gson();
-            String jsonString = gson.toJson(holidayData);
-            try {
-                JSONObject jsonObject = new JSONObject(jsonString);
-                Iterator<String> keys = jsonObject.keys();
-                int count=0;
-                while (keys.hasNext()) {
-                    if(count<=4){
-                        count++;
-                    }else {
-                        
-                    }
-                }
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+           updateFlag=true;
+        } else {
+
+            updateFlag=true;
+            scheduleDataArrayList=scheduleTableData.getScheduleDataList();
+            adapter.setScheduleData(scheduleDataArrayList);
         }
 
     }
@@ -166,4 +145,121 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleListA
     public void onItemDeleteClick(View view, ScheduleData milkmanData) {
 
     }
+
+    public void OnSubmitClick(View view) {
+        ScheduleTable scheduleTable = new ScheduleTable();
+        scheduleTable.setCustomerId(customerData.getCustomerId());
+        scheduleTable.setMonth(Calendar.MONTH);
+        scheduleTable.setYear(Calendar.YEAR);
+        scheduleTable.setScheduleDataList(scheduleDataArrayList);
+
+        if (updateFlag){
+            scheduleActivityViewModel.insertScheduleData(scheduleTable);
+        }else {
+            scheduleActivityViewModel.insertScheduleData(scheduleTable);
+        }
+    }
+    private class myAsyncTask extends AsyncTask<Integer, Void, ScheduleTable> {
+
+
+        ScheduleActivityViewModel viewModel;
+       // ScheduleTable scheduleTable;
+    String day;
+
+    public myAsyncTask(ScheduleActivityViewModel model) {
+        viewModel = model;
+       // scheduleTable = hData;
+       // day = daystr;
+    }
+
+    @Override
+    protected ScheduleTable doInBackground(Integer... params) {
+        return scheduleActivityViewModel.getScheduleData(params[0], params[1], params[2]);
+    }
+
+    @Override
+    protected void onPostExecute(ScheduleTable scheduleTable) {
+
+        SetData(scheduleTable);
+    }
 }
+
+}
+//private class myAsyncTask extends AsyncTask<Integer, Void, HolidayData> {
+//
+//
+//    CustomerDataViewModel viewModel;
+//    CustomerData customerData;
+//    String day;
+//
+//    public myAsyncTask(CustomerDataViewModel model, CustomerData hData, String daystr) {
+//        viewModel = model;
+//        customerData = hData;
+//        day = daystr;
+//    }
+//
+//    @Override
+//    protected HolidayData doInBackground(Integer... params) {
+//        return viewModel.checkIsHolidays(params[0], params[1], params[2]);
+//    }
+//
+//    @Override
+//    protected void onPostExecute(HolidayData holidayData) {
+//
+//        SetData(holidayData);
+//    }
+//}
+//
+//    private void SetData(HolidayData holidayData) {
+//
+//        if(holidayData!=null) {
+//            List<ScheduleData> scheduleDataArrayList = new ArrayList<>();
+//
+//            Calendar c = Calendar.getInstance();
+//            int monthMaxDays = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+//            for (int i = 1; i < monthMaxDays; i++) {
+//                ScheduleData scheduleData = new ScheduleData();
+//
+//                if (customerData.getDeliveryOn().equals("Daily")) {
+//                    scheduleData.setDate(i);
+//                    scheduleData.setOnltr(customerData.getQtyOneLtr());
+//                    scheduleData.setHalfltr(customerData.getQtyHalfLtr());
+//                    scheduleDataArrayList.add(scheduleData);
+//                } else if (customerData.getDeliveryOn().equals("EvenDay")) {
+//                    scheduleData.setDate(i);
+//                    if (i % 2 == 0) {
+//                        scheduleData.setOnltr(customerData.getQtyOneLtr());
+//                        scheduleData.setHalfltr(customerData.getQtyHalfLtr());
+//                    }
+//                    scheduleDataArrayList.add(scheduleData);
+//                } else if (customerData.getDeliveryOn().equals("OddDay")) {
+//                    scheduleData.setDate(i);
+//                    if (i % 2 != 0) {
+//                        scheduleData.setOnltr(customerData.getQtyOneLtr());
+//                        scheduleData.setHalfltr(customerData.getQtyHalfLtr());
+//                    }
+//                    scheduleDataArrayList.add(scheduleData);
+//                }
+//            }
+//            adapter.setScheduleData(scheduleDataArrayList);
+//        }else {
+//            Gson gson = new Gson();
+//            String jsonString = gson.toJson(holidayData);
+//            try {
+//                JSONObject jsonObject = new JSONObject(jsonString);
+//                Iterator<String> keys = jsonObject.keys();
+//                int count=0;
+//                while (keys.hasNext()) {
+//                    if(count<=4){
+//                        count++;
+//                    }else {
+//
+//                    }
+//                }
+//            } catch (JSONException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//        }
+//
+//    }
