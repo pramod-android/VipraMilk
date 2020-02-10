@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:padding="10dp"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:layout_margin="2dp"
+    android:background="#52666060"
+    android:orientation="vertical"
+    android:padding="2dp">
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/textViewName"
+        style="@style/titleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="31"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textViewOneLtr"
+        style="@style/qtyStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@drawable/round_tv"
+        app:layout_constraintEnd_toStartOf="@+id/textViewHalfLtr"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textViewName"
+        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
 
-        <TextView
-            android:id="@+id/textViewName"
-            style="@style/titleStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="aaaaa" />
+    <TextView
+        android:id="@+id/textViewHalfLtr"
+        style="@style/qtyStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/round_tv_two"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textViewName"
+        app:layout_constraintStart_toEndOf="@+id/textViewOneLtr"
+        app:layout_constraintTop_toTopOf="@+id/textViewOneLtr" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:weightSum="10">
-
-            <TextView
-                android:id="@+id/textViewContact"
-                style="@style/contactStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5" />
-
-            <TextView
-                android:id="@+id/textViewContactTwo"
-                style="@style/contactStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5" />
-        </LinearLayout>
-
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

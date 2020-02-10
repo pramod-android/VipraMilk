@@ -4,13 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mywork.vipramilk.R;
-import com.mywork.vipramilk.entity.MilkmanData;
 import com.mywork.vipramilk.entity.ScheduleData;
 
 import java.util.List;
@@ -21,17 +19,14 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
     private List<ScheduleData> milkmanDataList; // Cached copy of words
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final TextView textViewName, textViewContactNoOne, textViewContactNoTwo;
-       // private final ImageView imageViewMessage, imageViewEdit, imageViewDelete;
+        private final TextView textViewName, textViewOneLtr, textViewHalfLtr;
 
         private ViewHolder(View itemView) {
             super(itemView);
             textViewName = itemView.findViewById(R.id.textViewName);
-            textViewContactNoOne = itemView.findViewById(R.id.textViewContact);
-            textViewContactNoTwo = itemView.findViewById(R.id.textViewContactTwo);
-//            imageViewMessage = itemView.findViewById(R.id.imageViewContactWhatsApp);
-//            imageViewEdit = itemView.findViewById(R.id.imageViewEdit);
-//            imageViewDelete = itemView.findViewById(R.id.imageViewDelete);
+            textViewOneLtr = itemView.findViewById(R.id.textViewOneLtr);
+            textViewHalfLtr = itemView.findViewById(R.id.textViewHalfLtr);
+
             itemView.setOnClickListener(this);
 //            imageViewMessage.setOnClickListener(this);
 //            imageViewEdit.setOnClickListener(this);
@@ -48,12 +43,9 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
             if (mClickListener != null) {
 
                 mClickListener.onItemClick(v, getmItem(getAdapterPosition()));
-
             }
-
         }
     }
-
 
     public ScheduleListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -71,10 +63,16 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
             ScheduleData current = milkmanDataList.get(position);
             holder.textViewName.setText(String.valueOf(current.getDate()));
 
-            if(current.getOnltr()!=0)
-            holder.textViewContactNoOne.setText(String.valueOf(current.getOnltr()));
-            if(current.getTwoltr()!=0)
-            holder.textViewContactNoTwo.setText(String.valueOf(current.getTwoltr()));
+            if(current.getOnltr()!=0) {
+                holder.textViewOneLtr.setText(String.valueOf(current.getOnltr()));
+            }else {
+                holder.textViewOneLtr.setVisibility(View.GONE);
+            }
+            if(current.getTwoltr()!=0) {
+                holder.textViewHalfLtr.setText(String.valueOf(current.getTwoltr()));
+            }else {
+                holder.textViewHalfLtr.setVisibility(View.GONE);
+            }
         } else {
             // Covers the case of data not being ready yet.
             holder.textViewName.setText("No Word");

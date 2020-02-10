@@ -16,7 +16,6 @@ import java.util.List;
 public class ScheduleTable {
 
     @PrimaryKey(autoGenerate = true)
-    @NonNull
     @SerializedName("id")
     @Expose
     @ColumnInfo(name = "id")
@@ -27,13 +26,11 @@ public class ScheduleTable {
     @ColumnInfo(name = "customer_id")
     private int customerId;
 
-    @NonNull
     @SerializedName("month")
     @Expose
     @ColumnInfo(name = "month")
     private int month=0;
 
-    @NonNull
     @SerializedName("year")
     @Expose
     @ColumnInfo(name = "year")
@@ -44,6 +41,7 @@ public class ScheduleTable {
     @SerializedName("scheduleDataList")
     @Expose
     @ColumnInfo(name = "scheduleDataList")
+    private
     List<ScheduleData> scheduleDataList;
 
     public int getId() {

@@ -3,39 +3,22 @@ package com.mywork.vipramilk.activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.View;
+import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.mywork.vipramilk.R;
-import com.mywork.vipramilk.adapter.MilkmanListAdapter;
 import com.mywork.vipramilk.adapter.ScheduleListAdapter;
 import com.mywork.vipramilk.entity.CustomerData;
-import com.mywork.vipramilk.entity.HolidayData;
-import com.mywork.vipramilk.entity.MilkmanData;
 import com.mywork.vipramilk.entity.ScheduleData;
 import com.mywork.vipramilk.entity.ScheduleTable;
-import com.mywork.vipramilk.viewmodel.CustomerDataViewModel;
 import com.mywork.vipramilk.viewmodel.HolidayDataViewModel;
 import com.mywork.vipramilk.viewmodel.ScheduleActivityViewModel;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 
 public class ScheduleActivity extends AppCompatActivity implements ScheduleListAdapter.ItemClickListener {
@@ -55,7 +38,7 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleListA
 
         customerData = (CustomerData) intent.getSerializableExtra("cust");
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         adapter = new ScheduleListAdapter(this);
         recyclerView.setAdapter(adapter);
         adapter.setClickListener(this);
@@ -81,7 +64,6 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleListA
 //            }
 //        });
     }
-
 
     private void SetData(ScheduleTable scheduleTableData) {
 
@@ -127,22 +109,22 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleListA
     }
 
     @Override
-    public void onItemClick(View view, ScheduleData milkmanData) {
+    public void onItemClick(View view, ScheduleData scheduleData) {
+        Toast.makeText(this, "Item click "+scheduleData.getDate(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemMessageClick(View view, ScheduleData scheduleData) {
 
     }
 
     @Override
-    public void onItemMessageClick(View view, ScheduleData milkmanData) {
+    public void onItemEditClick(View view, ScheduleData scheduleData) {
 
     }
 
     @Override
-    public void onItemEditClick(View view, ScheduleData milkmanData) {
-
-    }
-
-    @Override
-    public void onItemDeleteClick(View view, ScheduleData milkmanData) {
+    public void onItemDeleteClick(View view, ScheduleData scheduleData) {
 
     }
 
@@ -166,7 +148,7 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleListA
        // ScheduleTable scheduleTable;
     String day;
 
-    public myAsyncTask(ScheduleActivityViewModel model) {
+    myAsyncTask(ScheduleActivityViewModel model) {
         viewModel = model;
        // scheduleTable = hData;
        // day = daystr;

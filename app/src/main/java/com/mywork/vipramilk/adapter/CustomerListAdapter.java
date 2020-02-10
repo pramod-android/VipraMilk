@@ -2,9 +2,11 @@ package com.mywork.vipramilk.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,24 +19,25 @@ import java.util.List;
 public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapter.CustomerHolder> {
     ItemClickListener mClickListener;
     private final LayoutInflater mInflater;
+    Context mContext;
     private List<CustomerData> customerDataList; // Cached copy of words
 
     class CustomerHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView textViewName, textViewContactNoOne, textViewContactNoTwo;
-        private final ImageView imageViewMessage,imageViewEdit,imageViewDelete;
+        private final ImageView imageViewDelete;
 
         private CustomerHolder(View itemView) {
             super(itemView);
             textViewName = itemView.findViewById(R.id.textViewName);
             textViewContactNoOne = itemView.findViewById(R.id.textViewContact);
             textViewContactNoTwo = itemView.findViewById(R.id.textViewContactTwo);
-            imageViewMessage = itemView.findViewById(R.id.imageViewContactWhatsApp);
-            imageViewEdit = itemView.findViewById(R.id.imageViewEdit);
+           // imageViewMessage = itemView.findViewById(R.id.imageViewContactWhatsApp);
+           // imageViewEdit = itemView.findViewById(R.id.imageViewEdit);
             imageViewDelete = itemView.findViewById(R.id.imageViewDelete);
             itemView.setOnClickListener(this);
-            imageViewMessage.setOnClickListener(this);
-            imageViewEdit.setOnClickListener(this);
-            imageViewDelete.setOnClickListener(this);
+           // imageViewMessage.setOnClickListener(this);
+           // imageViewEdit.setOnClickListener(this);
+           // imageViewDelete.setOnClickListener(this);
         }
 
         public CustomerData getmItem(int position) {
@@ -62,6 +65,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
     public CustomerListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
+        mContext=context;
     }
 
     @Override
@@ -83,6 +87,35 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
             // Covers the case of data not being ready yet.
             holder.textViewName.setText("No Word");
         }
+
+        holder.imageViewDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //creating a popup menu
+                PopupMenu popup = new PopupMenu(mContext, holder.imageViewDelete);
+                //inflating menu from xml resource
+                popup.inflate(R.menu.options_menu);
+                //adding click listener
+                popup.setOnMenuItemClickListener(item -> {
+                    switch (item.getItemId()) {
+                        case R.id.menu1:
+                            mClickListener.onItemEditClick(view, customerDataList.get(position));
+                            break;
+                        case R.id.menu2:
+                            mClickListener.onItemMessageClick(view, customerDataList.get(position));
+                            break;
+                        case R.id.menu3:
+                            mClickListener.onItemDeleteClick(view, customerDataList.get(position));
+                            break;
+                    }
+                    return false;
+                });
+                //displaying the popup
+                popup.show();
+
+            }
+        });
     }
 
     public void setCustomers(List<CustomerData> customers) {
